@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.example.smartshedulerapp.R;
 import com.example.smartshedulerapp.api.AuthApiService;
+import com.example.smartshedulerapp.config.AppModule;
 import com.example.smartshedulerapp.config.AuthComponent;
 import com.example.smartshedulerapp.config.DaggerAuthComponent;
 import com.example.smartshedulerapp.model.SignUpDTO;
@@ -54,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     ButterKnife.bind(this);
 
-    AuthComponent authComponent = DaggerAuthComponent.create();
+    AuthComponent authComponent = DaggerAuthComponent.builder().appModule(new AppModule(this)).build();
     authComponent.inject(this);
   }
 

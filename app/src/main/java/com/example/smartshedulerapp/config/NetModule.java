@@ -1,5 +1,6 @@
 package com.example.smartshedulerapp.config;
 
+import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dagger.Module;
@@ -12,7 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-@Module
+@Module(includes = AppModule.class)
 public class NetModule {
 
   @Provides
@@ -25,12 +26,13 @@ public class NetModule {
 
   @Provides
   @Singleton
-  static OkHttpClient provideOkhttpClient() {
+  static OkHttpClient provideOkhttpClient(Context context) {
     HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
     logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
     OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
     httpClient.addInterceptor(logging);
+    httpClient.addInterceptor(new JwtInterceptor(context));
     httpClient.connectTimeout(30, TimeUnit.SECONDS);
     httpClient.readTimeout(30, TimeUnit.SECONDS);
 

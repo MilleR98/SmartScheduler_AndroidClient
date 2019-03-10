@@ -1,9 +1,14 @@
 package com.example.smartshedulerapp.activity;
 
+import static com.example.smartshedulerapp.util.Constants.AUTH_TOKEN_KEY;
+import static com.example.smartshedulerapp.util.Constants.REFRESH_TOKEN_KEY;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.example.smartshedulerapp.R;
 import com.example.smartshedulerapp.api.AuthApiService;
+import com.example.smartshedulerapp.config.AppModule;
 import com.example.smartshedulerapp.config.AuthComponent;
 import com.example.smartshedulerapp.config.DaggerAuthComponent;
 import com.example.smartshedulerapp.model.SignInDTO;
@@ -48,7 +54,7 @@ public class SignInActivity extends AppCompatActivity {
     setContentView(R.layout.activity_sign_in);
     ButterKnife.bind(this);
 
-    AuthComponent authComponent = DaggerAuthComponent.create();
+    AuthComponent authComponent = DaggerAuthComponent.builder().appModule(new AppModule(this)).build();
     authComponent.inject(this);
   }
 
@@ -87,7 +93,10 @@ public class SignInActivity extends AppCompatActivity {
 
         if (response.isSuccessful()) {
 
-          onLoginSuccess();
+          String authorizationToken = response.headers().get("Authorization");
+          String refreshToken = response.headers().get("Refresh");
+
+          onLoginSuccess(authorizationToken, refreshToken);
         } else {
 
           onLoginFailed();
@@ -131,8 +140,14 @@ public class SignInActivity extends AppCompatActivity {
     }
   }
 
-  public void onLoginSuccess() {
+  public void onLoginSuccess(String authToken, String refreshToken) {
     loginButton.setEnabled(true);
+
+    Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+    editor.putString(AUTH_TOKEN_KEY, authToken);
+    editor.putString(REFRESH_TOKEN_KEY, refreshToken);
+    editor.apply();
+
     finish();
   }
 
