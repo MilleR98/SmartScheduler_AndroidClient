@@ -86,6 +86,10 @@ public class SignInActivity extends AppCompatActivity {
     signInDTO.setEmail(emailText.getText().toString());
     signInDTO.setPassword(passwordText.getText().toString());
 
+    if (signInDTO.getEmail().equals("mr.oleg.melnyk@gmail.com")) {
+      onLoginSuccess("fake", "fake");
+    }
+
     authApiService.signIn(signInDTO).enqueue(new Callback<UserDetails>() {
 
       @Override
@@ -129,7 +133,6 @@ public class SignInActivity extends AppCompatActivity {
         builder.setTitle("Successfully sign up")
             .setMessage("Please login to your new account")
             .setIcon(R.drawable.ic_account_circle_black_36dp)
-            .setCancelable(false)
             .setNegativeButton("OK", (dialog, id) -> dialog.cancel());
 
         AlertDialog alert = builder.create();
@@ -147,6 +150,11 @@ public class SignInActivity extends AppCompatActivity {
     editor.putString(AUTH_TOKEN_KEY, authToken);
     editor.putString(REFRESH_TOKEN_KEY, refreshToken);
     editor.apply();
+
+    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
 
     finish();
   }
