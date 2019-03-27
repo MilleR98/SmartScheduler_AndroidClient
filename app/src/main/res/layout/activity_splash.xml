@@ -6,15 +6,20 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context=".activity.SplashActivity">
-  <ImageView
-    android:id="@+id/imageView4"
-    android:layout_width="291dp"
-    android:layout_height="412dp"
-    android:layout_marginTop="100dp"
+  <TextView
+    android:id="@+id/textView"
+    android:textStyle="bold"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
+    android:textColor="@color/colorPrimary"
+    android:text="Hi"
+    android:textSize="40sp"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:srcCompat="@drawable/scheduler"/>
+    app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

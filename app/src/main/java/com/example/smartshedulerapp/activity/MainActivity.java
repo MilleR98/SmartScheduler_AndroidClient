@@ -24,8 +24,11 @@ public class MainActivity extends AppCompatActivity {
         case R.id.navigation_dashboard:
           mTextMessage.setText(R.string.title_dashboard);
           return true;
-        case R.id.navigation_notifications:
-          mTextMessage.setText(R.string.title_notifications);
+        case R.id.navigation_calendar:
+          mTextMessage.setText(R.string.title_calendar);
+          return true;
+        case R.id.navigation_achievements:
+          mTextMessage.setText(R.string.title_challenge);
           return true;
         case R.id.navigation_profile:
           mTextMessage.setText(R.string.title_profile);
@@ -40,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    mTextMessage = (TextView) findViewById(R.id.message);
-    BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+    mTextMessage = findViewById(R.id.message);
+    BottomNavigationView navigation = findViewById(R.id.navigation);
     navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
   }
 

@@ -2,6 +2,7 @@ package com.example.smartshedulerapp.activity;
 
 import static com.example.smartshedulerapp.util.Constants.AUTH_TOKEN_KEY;
 import static com.example.smartshedulerapp.util.Constants.REFRESH_TOKEN_KEY;
+import static java.util.Objects.nonNull;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -36,6 +37,8 @@ public class SignInActivity extends AppCompatActivity {
   private static final String TAG = "LoginActivity";
   private static final int REQUEST_SIGNUP = 0;
 
+  private ProgressDialog progressDialog;
+
   @Inject
   AuthApiService authApiService;
 
@@ -54,6 +57,8 @@ public class SignInActivity extends AppCompatActivity {
     setContentView(R.layout.activity_sign_in);
     ButterKnife.bind(this);
 
+    progressDialog = new ProgressDialog(SignInActivity.this, R.style.Theme_MaterialComponents_Dialog);
+
     AuthComponent authComponent = DaggerAuthComponent.builder().appModule(new AppModule(this)).build();
     authComponent.inject(this);
   }
@@ -69,16 +74,14 @@ public class SignInActivity extends AppCompatActivity {
     Log.d(TAG, "Login");
 
     if (!SignInValidator.validate(emailText, passwordText)) {
-      onLoginFailed();
 
       return;
     }
 
     loginButton.setEnabled(false);
 
-    final ProgressDialog progressDialog = new ProgressDialog(SignInActivity.this,
-        R.style.Theme_MaterialComponents_Dialog);
-    progressDialog.setIndeterminate(true);
+    progressDialog.setIndeterminate(false);
+    progressDialog.setCancelable(false);
     progressDialog.setMessage("Authenticating...");
     progressDialog.show();
 
@@ -105,8 +108,10 @@ public class SignInActivity extends AppCompatActivity {
 
           onLoginFailed();
         }
-        progressDialog.dismiss();
 
+        if (nonNull(progressDialog) && progressDialog.isShowing()) {
+          progressDialog.dismiss();
+        }
       }
 
       @Override
@@ -121,7 +126,29 @@ public class SignInActivity extends AppCompatActivity {
   @Override
   public void onBackPressed() {
 
+    if (nonNull(progressDialog) && progressDialog.isShowing()) {
+      progressDialog.dismiss();
+    }
+
     moveTaskToBack(true);
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+
+    if (nonNull(progressDialog) && progressDialog.isShowing()) {
+      progressDialog.dismiss();
+    }
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+
+    if (nonNull(progressDialog) && progressDialog.isShowing()) {
+      progressDialog.dismiss();
+    }
   }
 
   @Override
@@ -136,6 +163,7 @@ public class SignInActivity extends AppCompatActivity {
             .setNegativeButton("OK", (dialog, id) -> dialog.cancel());
 
         AlertDialog alert = builder.create();
+
         alert.show();
 
         this.finish();
