@@ -1,51 +1,100 @@
 package com.example.smartshedulerapp.activity;
 
+import static java.util.Objects.nonNull;
+
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import com.example.smartshedulerapp.R;
+import com.example.smartshedulerapp.fragment.CalendarFragment;
+import com.example.smartshedulerapp.fragment.ChallengesFragment;
+import com.example.smartshedulerapp.fragment.DashboardFragment;
+import com.example.smartshedulerapp.fragment.HomeFragment;
+import com.example.smartshedulerapp.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-  private TextView mTextMessage;
-
-  private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-      = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-      switch (item.getItemId()) {
-        case R.id.navigation_home:
-          mTextMessage.setText(R.string.title_home);
-          return true;
-        case R.id.navigation_dashboard:
-          mTextMessage.setText(R.string.title_dashboard);
-          return true;
-        case R.id.navigation_calendar:
-          mTextMessage.setText(R.string.title_calendar);
-          return true;
-        case R.id.navigation_achievements:
-          mTextMessage.setText(R.string.title_challenge);
-          return true;
-        case R.id.navigation_profile:
-          mTextMessage.setText(R.string.title_profile);
-          return true;
-      }
-      return false;
-    }
-  };
+  private Map<Integer, Runnable> navigationItemActions = new HashMap<>();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    mTextMessage = findViewById(R.id.message);
     BottomNavigationView navigation = findViewById(R.id.navigation);
+
+    BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = this::processNavigationItemSelection;
     navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+    navigateToHome();
+
+    configureNavigationActionsMap();
   }
 
+  private boolean processNavigationItemSelection(MenuItem item) {
+
+    boolean itemSelected = false;
+
+    if (navigationItemActions.containsKey(item.getItemId())) {
+
+      navigationItemActions.get(item.getItemId()).run();
+      itemSelected = true;
+    }
+
+    return itemSelected;
+  }
+
+  private void configureNavigationActionsMap() {
+    navigationItemActions.put(R.id.navigation_home, this::navigateToHome);
+    navigationItemActions.put(R.id.navigation_dashboard, this::navigateToDashboard);
+    navigationItemActions.put(R.id.navigation_calendar, this::navigateToCalendar);
+    navigationItemActions.put(R.id.navigation_achievements, this::navigateToChallenges);
+    navigationItemActions.put(R.id.navigation_profile, this::navigateToProfile);
+  }
+
+  private void navigateToProfile() {
+
+    loadFragment(new ProfileFragment());
+  }
+
+  private void navigateToChallenges() {
+
+    loadFragment(new ChallengesFragment());
+  }
+
+  private void navigateToCalendar() {
+
+    loadFragment(new CalendarFragment());
+  }
+
+  private void navigateToDashboard() {
+
+    loadFragment(new DashboardFragment());
+  }
+
+  private void navigateToHome() {
+
+    loadFragment(new HomeFragment());
+  }
+
+  private boolean loadFragment(Fragment fragment) {
+
+    boolean isFragmentChanged = false;
+
+    if (nonNull(fragment)) {
+
+      getSupportFragmentManager()
+          .beginTransaction()
+          .replace(R.id.fragment_container, fragment)
+          .commit();
+
+      isFragmentChanged = true;
+    }
+
+    return isFragmentChanged;
+  }
 }
