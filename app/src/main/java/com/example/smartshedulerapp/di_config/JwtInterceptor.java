@@ -1,4 +1,4 @@
-package com.example.smartshedulerapp.config;
+package com.example.smartshedulerapp.di_config;
 
 import static com.example.smartshedulerapp.util.Constants.AUTH_TOKEN_KEY;
 

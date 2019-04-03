@@ -1,6 +1,7 @@
-package com.example.smartshedulerapp.config;
+package com.example.smartshedulerapp.di_config.module;
 
 import android.content.Context;
+import com.example.smartshedulerapp.di_config.JwtInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dagger.Module;

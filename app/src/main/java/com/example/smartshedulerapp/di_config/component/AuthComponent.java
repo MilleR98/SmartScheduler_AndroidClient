@@ -1,8 +1,9 @@
-package com.example.smartshedulerapp.config;
+package com.example.smartshedulerapp.di_config.component;
 
 import com.example.smartshedulerapp.activity.SignInActivity;
 import com.example.smartshedulerapp.activity.SignUpActivity;
 import com.example.smartshedulerapp.api.AuthApiService;
+import com.example.smartshedulerapp.di_config.module.AuthApiModule;
 import dagger.Component;
 import javax.inject.Singleton;
 

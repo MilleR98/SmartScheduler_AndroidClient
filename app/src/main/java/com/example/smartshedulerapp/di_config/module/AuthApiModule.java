@@ -1,4 +1,4 @@
-package com.example.smartshedulerapp.config;
+package com.example.smartshedulerapp.di_config.module;
 
 import com.example.smartshedulerapp.api.AuthApiService;
 import dagger.Module;
