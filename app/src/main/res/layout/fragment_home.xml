@@ -6,10 +6,10 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="#f7f7f7"
-  tools:context=".activity.SplashActivity">
+  tools:context=".fragment.HomeFragment">
 
   <ImageView
-    android:id="@+id/imageView"
+    android:id="@+id/titleBar"
     android:layout_width="362dp"
     android:layout_height="77dp"
     android:scaleType="centerInside"
@@ -19,39 +19,46 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"/>
 
-  <ImageView
-    android:id="@+id/homePageTopBar"
-    android:layout_width="284dp"
-    android:layout_height="220dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-    android:scaleType="centerInside"
-    android:src="@drawable/events_empty_data"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
+  <Button
+    android:id="@+id/switchTaskBtn"
+    android:layout_width="82dp"
+    android:layout_height="20dp"
+    android:layout_marginTop="45dp"
+    android:layout_marginStart="88dp"
+    android:background="@drawable/button_flat"
+    android:text="Tasks"
+    android:textColor="@android:color/white"
+    android:textSize="10sp"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.475"/>
-
+    app:layout_constraintTop_toTopOf="parent"/>
+  <Button
+    android:id="@+id/switchEventsBtn"
+    android:layout_width="82dp"
+    android:layout_height="20dp"
+    android:layout_marginTop="45dp"
+    android:layout_marginEnd="88dp"
+    android:background="@drawable/button_flat"
+    android:text="Events"
+    android:textColor="@android:color/white"
+    android:textSize="10sp"
+    app:layout_constraintEnd_toEndOf="@+id/titleBar"
+    app:layout_constraintTop_toTopOf="parent"/>
   <TextView
     android:id="@+id/home_title"
     android:textStyle="bold"
     android:layout_width="wrap_content"
-    android:layout_height="36dp"
-    android:layout_marginTop="24dp"
+    android:layout_height="26dp"
+    android:layout_marginTop="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-    android:text="Your daily events"
+    android:text="Your daily activity"
     android:textColor="#fff"
-    android:textSize="25sp"
+    android:textSize="20sp"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.503"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/imageView"/>
+    app:layout_constraintTop_toTopOf="parent"/>
   <ImageView
-    android:id="@+id/imageView2"
+    android:id="@+id/notificationIcon"
     android:layout_width="24dp"
     android:layout_height="24dp"
     android:layout_marginTop="30dp"
@@ -59,4 +66,14 @@
     android:src="@drawable/ic_notifications_black_24dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"/>
+
+  <FrameLayout
+    android:id="@+id/home_fragment_container"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/titleBar"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

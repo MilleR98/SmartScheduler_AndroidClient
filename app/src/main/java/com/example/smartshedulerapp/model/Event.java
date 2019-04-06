@@ -1,6 +1,6 @@
 package com.example.smartshedulerapp.model;
 
-import com.miller.smartscheduler.model.type.EventCategory;
+import com.example.smartshedulerapp.model.type.EventCategory;
 import java.time.LocalDateTime;
 import lombok.Data;
 

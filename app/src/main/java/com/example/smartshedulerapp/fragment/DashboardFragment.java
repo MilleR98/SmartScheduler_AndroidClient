@@ -9,6 +9,10 @@ import com.example.smartshedulerapp.R;
 
 public class DashboardFragment extends Fragment {
 
+  public DashboardFragment() {
+
+  }
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

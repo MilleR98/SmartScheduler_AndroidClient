@@ -1,5 +1,6 @@
 package com.example.smartshedulerapp.fragment;
 
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,22 +8,20 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import com.example.smartshedulerapp.R;
 
-public class CalendarFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class DailyEventsFragment extends Fragment {
 
-  public CalendarFragment() {
-  }
-
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+  public DailyEventsFragment() {
+    // Required empty public constructor
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-
-    View inflate = inflater.inflate(R.layout.fragment_calendar, container, false);
-
-    return inflate;
+    // Inflate the layout for this fragment
+    return inflater.inflate(R.layout.fragment_daily_events, container, false);
   }
+
 }

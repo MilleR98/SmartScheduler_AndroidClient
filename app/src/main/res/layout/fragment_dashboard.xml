@@ -7,7 +7,7 @@
   tools:context=".fragment.DashboardFragment">
 
   <ImageView
-    android:id="@+id/homePageTopBar"
+    android:id="@+id/noEventsBackground"
     android:layout_width="362dp"
     android:layout_height="77dp"
     android:scaleType="centerInside"
@@ -31,6 +31,6 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.503"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/homePageTopBar"/>
+    app:layout_constraintTop_toTopOf="@+id/noEventsBackground"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

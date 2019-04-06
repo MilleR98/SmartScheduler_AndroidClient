@@ -1,7 +1,7 @@
 package com.example.smartshedulerapp.model;
 
-import com.miller.smartscheduler.model.type.SubtaskPriority;
-import com.miller.smartscheduler.model.type.SubtaskStatus;
+import com.example.smartshedulerapp.model.type.SubtaskPriority;
+import com.example.smartshedulerapp.model.type.SubtaskStatus;
 import lombok.Data;
 
 @Data

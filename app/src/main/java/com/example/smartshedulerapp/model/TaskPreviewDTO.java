@@ -1,7 +1,7 @@
 package com.example.smartshedulerapp.model;
 
-import com.miller.smartscheduler.model.type.ReminderType;
-import com.miller.smartscheduler.model.type.SubtaskStatus;
+import com.example.smartshedulerapp.model.type.ReminderType;
+import com.example.smartshedulerapp.model.type.SubtaskStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Data;

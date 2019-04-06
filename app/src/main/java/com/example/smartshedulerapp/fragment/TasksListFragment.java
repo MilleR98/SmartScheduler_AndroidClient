@@ -1,28 +1,29 @@
 package com.example.smartshedulerapp.fragment;
 
+
 import android.os.Bundle;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.fragment.app.Fragment;
+
 import com.example.smartshedulerapp.R;
 
-public class CalendarFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class TasksListFragment extends Fragment {
 
-  public CalendarFragment() {
-  }
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+  public TasksListFragment() {
+
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-
-    View inflate = inflater.inflate(R.layout.fragment_calendar, container, false);
-
-    return inflate;
+    // Inflate the layout for this fragment
+    return inflater.inflate(R.layout.fragment_tasks_list, container, false);
   }
+
 }

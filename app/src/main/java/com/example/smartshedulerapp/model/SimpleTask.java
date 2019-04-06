@@ -1,7 +1,6 @@
 package com.example.smartshedulerapp.model;
 
-import com.miller.smartscheduler.model.type.ReminderType;
-import java.time.LocalDate;
+import com.example.smartshedulerapp.model.type.ReminderType;
 import java.time.LocalDateTime;
 import lombok.Data;
 

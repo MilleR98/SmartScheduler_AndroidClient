@@ -23,7 +23,7 @@ import com.example.smartshedulerapp.R;
 import com.example.smartshedulerapp.api.AuthApiService;
 import com.example.smartshedulerapp.di_config.module.AppModule;
 import com.example.smartshedulerapp.di_config.component.AuthComponent;
-import com.example.smartshedulerapp.di_config.DaggerAuthComponent;
+import com.example.smartshedulerapp.di_config.component.DaggerAuthComponent;
 import com.example.smartshedulerapp.model.SignInDTO;
 import com.example.smartshedulerapp.model.UserDetails;
 import com.example.smartshedulerapp.validator.SignInValidator;
