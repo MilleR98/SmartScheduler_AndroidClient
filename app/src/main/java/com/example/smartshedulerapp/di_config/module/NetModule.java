@@ -2,6 +2,7 @@ package com.example.smartshedulerapp.di_config.module;
 
 import android.content.Context;
 import com.example.smartshedulerapp.di_config.JwtInterceptor;
+import com.example.smartshedulerapp.util.Constants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dagger.Module;
@@ -47,7 +48,7 @@ public class NetModule {
     return new Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .baseUrl("https://d82cb2ee.ngrok.io")
+        .baseUrl(Constants.SERVER_DOMAIN)
         .client(okHttpClient)
         .build();
   }

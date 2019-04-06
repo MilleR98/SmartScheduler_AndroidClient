@@ -70,10 +70,11 @@
       android:layout_width="414dp"
       android:layout_height="349dp"
       android:src="@drawable/calendar_background_custom"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       app:siShape="@drawable/sign_image_in_shape"
-      app:siSquare="false"
-      tools:layout_editor_absoluteX="0dp"
-      tools:layout_editor_absoluteY="0dp"/>
+      app:siSquare="false"/>
     <TextView
       android:id="@+id/textView2"
       android:textStyle="bold"
