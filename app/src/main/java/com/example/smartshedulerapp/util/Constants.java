@@ -4,6 +4,8 @@ public interface Constants {
 
   String AUTH_TOKEN_KEY = "AuthToken";
   String REFRESH_TOKEN_KEY = "RefreshToken";
+  String DEVICE_ID_KEY = "DeviceId";
+  String FCM_TOKEN = "FcmToken";
 
   String SERVER_DOMAIN = "https://c40445e1.ngrok.io";
   String REPORT_URL = SERVER_DOMAIN + "/error/report";

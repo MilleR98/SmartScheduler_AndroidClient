@@ -4,16 +4,24 @@
   package="com.example.smartshedulerapp">
 
   <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+  <uses-permission android:name="com.github.hathibelagal.pn.permission.C2D_MESSAGE"/>
 
   <application
-    android:name=".SmartSchedulerApplication"
-    android:allowBackup="true"
+    android:allowBackup="false"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
+    android:name=".SmartSchedulerApplication"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme"
     tools:ignore="GoogleAppIndexingWarning">
+    <service android:name=".service.MyFirebaseMessagingService">
+      <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+      </intent-filter>
+    </service>
+
     <activity android:name=".activity.CreateEventActivity">
     </activity>
     <activity android:name=".activity.CreateTaskActivity">

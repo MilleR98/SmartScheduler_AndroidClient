@@ -1,12 +1,15 @@
 package com.example.smartshedulerapp.activity;
 
 import static com.example.smartshedulerapp.util.Constants.AUTH_TOKEN_KEY;
+import static com.example.smartshedulerapp.util.Constants.DEVICE_ID_KEY;
+import static com.example.smartshedulerapp.util.Constants.FCM_TOKEN;
 import static com.example.smartshedulerapp.util.Constants.REFRESH_TOKEN_KEY;
 import static java.util.Objects.nonNull;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,13 +24,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.example.smartshedulerapp.R;
 import com.example.smartshedulerapp.api.AuthApiService;
-import com.example.smartshedulerapp.di_config.module.AppModule;
 import com.example.smartshedulerapp.di_config.component.AuthComponent;
 import com.example.smartshedulerapp.di_config.component.DaggerAuthComponent;
+import com.example.smartshedulerapp.di_config.module.AppModule;
+import com.example.smartshedulerapp.model.DeviceFcmTokenDTO;
 import com.example.smartshedulerapp.model.SignInDTO;
 import com.example.smartshedulerapp.model.UserDetails;
 import com.example.smartshedulerapp.validator.SignInValidator;
 import javax.inject.Inject;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -88,10 +93,6 @@ public class SignInActivity extends AppCompatActivity {
     SignInDTO signInDTO = new SignInDTO();
     signInDTO.setEmail(emailText.getText().toString());
     signInDTO.setPassword(passwordText.getText().toString());
-
-    if (signInDTO.getEmail().equals("mr.oleg.melnyk@gmail.com")) {
-      onLoginSuccess("fake", "fake");
-    }
 
     authApiService.signIn(signInDTO).enqueue(new Callback<UserDetails>() {
 
@@ -174,7 +175,8 @@ public class SignInActivity extends AppCompatActivity {
   public void onLoginSuccess(String authToken, String refreshToken) {
     loginButton.setEnabled(true);
 
-    Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+    Editor editor = sharedPreferences.edit();
     editor.putString(AUTH_TOKEN_KEY, authToken);
     editor.putString(REFRESH_TOKEN_KEY, refreshToken);
     editor.apply();
@@ -183,6 +185,27 @@ public class SignInActivity extends AppCompatActivity {
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(intent);
+
+    DeviceFcmTokenDTO deviceFcmTokenDTO = new DeviceFcmTokenDTO();
+    deviceFcmTokenDTO.setDeviceFcmToken(sharedPreferences.getString(FCM_TOKEN, ""));
+    deviceFcmTokenDTO.setDeviceId(sharedPreferences.getString(DEVICE_ID_KEY, ""));
+
+    authApiService.registerUserNotificationToken(deviceFcmTokenDTO).enqueue(new Callback<ResponseBody>() {
+
+      @Override
+      public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+        if (!response.isSuccessful()) {
+          Log.w(TAG, "Device fcm token didnt registered for user");
+        }
+      }
+
+      @Override
+      public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+        Log.w(TAG, "Error sending device fcm token", t);
+      }
+    });
 
     finish();
   }

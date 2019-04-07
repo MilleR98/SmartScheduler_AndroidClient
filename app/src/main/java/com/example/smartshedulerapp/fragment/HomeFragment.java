@@ -68,7 +68,6 @@ public class HomeFragment extends Fragment {
     getActivity().getSupportFragmentManager()
         .beginTransaction()
         .replace(R.id.home_fragment_container, fragment)
-        .disallowAddToBackStack()
         .addToBackStack(null)
         .commit();
   }

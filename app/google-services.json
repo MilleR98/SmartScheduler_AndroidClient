@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "246623231249",
+    "firebase_url": "https://smartscheduler-1c793.firebaseio.com",
+    "project_id": "smartscheduler-1c793",
+    "storage_bucket": "smartscheduler-1c793.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246623231249:android:0ec675556ca086cb",
+        "android_client_info": {
+          "package_name": "com.example.smartshedulerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246623231249-4v73msdqh0uendog9rj3v6tqufch1mre.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smartshedulerapp",
+            "certificate_hash": "c8fb0cb8f081e15195f7902d1e96eb7bd0b85bf5"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwtFOdfprLaCTGAPJx2pE9Mj3gHmYFHio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246623231249-farhslov1itcc5pnmgc0nijnbk1gk3sh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
