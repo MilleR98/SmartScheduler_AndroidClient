@@ -38,10 +38,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
   public void onMessageReceived(RemoteMessage remoteMessage) {
     super.onMessageReceived(remoteMessage);
 
-    showNotifcation(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+    Log.d(TAG, remoteMessage.toString());
+
+    showNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
   }
 
-  private void showNotifcation(String title, String body) {
+  private void showNotification(String title, String body) {
     NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     String notificationChannelId = "com.example.smartshedulerapp";
 
@@ -64,7 +66,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     Notification notification = notificationBuilder.setAutoCancel(true)
         .setDefaults(DEFAULT_ALL)
         .setWhen(System.currentTimeMillis())
-        .setSmallIcon(R.drawable.calendar_logo)
+        .setSmallIcon(R.drawable.ic_date_range_black_36dp)
         .setContentTitle(title)
         .setContentText(body)
         .setContentInfo("info")

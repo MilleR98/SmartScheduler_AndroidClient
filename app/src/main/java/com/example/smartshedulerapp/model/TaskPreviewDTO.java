@@ -1,16 +1,16 @@
 package com.example.smartshedulerapp.model;
 
-import com.example.smartshedulerapp.model.type.ReminderType;
 import com.example.smartshedulerapp.model.type.SubtaskStatus;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import lombok.Data;
 
 @Data
 public class TaskPreviewDTO {
 
-  private String name;
-  private ReminderType reminderType;
-  private LocalDateTime deadlineDate;
-  private List<SubtaskStatus> subtaskStatuses;
+  private String titile;
+  private Date deadlineDate;
+  private Date createdAt;
+  private List<SubtaskStatus> subtaskStatuses = new ArrayList<>();
 }

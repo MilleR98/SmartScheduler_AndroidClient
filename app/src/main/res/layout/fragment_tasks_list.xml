@@ -9,15 +9,42 @@
   tools:context=".fragment.TasksListFragment">
 
   <ImageView
-    android:id="@+id/imageView2"
+    android:id="@+id/emptyTaskListImage"
     android:layout_width="197dp"
     android:layout_height="270dp"
     android:scaleType="centerCrop"
+    android:visibility="gone"
     android:src="@drawable/no_tasks_image"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.503"
+    app:layout_constraintHorizontal_bias="0.509"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.408"/>
+    app:layout_constraintVertical_bias="0.375"/>
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/createTaskBtn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="24dp"
+    android:layout_marginEnd="24dp"
+    android:background="#fff"
+    android:clickable="true"
+    android:src="@drawable/ic_add_black_36dp"
+    app:backgroundTint="@color/colorPrimary"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/taskListRecycleView"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

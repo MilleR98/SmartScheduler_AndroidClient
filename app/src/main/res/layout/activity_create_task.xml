@@ -5,6 +5,199 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:focusableInTouchMode="true"
   tools:context=".activity.CreateTaskActivity">
+
+  <ImageView
+    android:id="@+id/createTaskPageTopBar"
+    android:layout_width="362dp"
+    android:layout_height="77dp"
+    android:scaleType="centerInside"
+    android:src="@drawable/top_bar_shape"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+    android:id="@+id/create_task_title"
+    android:textStyle="bold"
+    android:layout_width="wrap_content"
+    android:layout_height="36dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:text="New task"
+    android:textColor="#fff"
+    android:textSize="25sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <ImageView
+    android:id="@+id/backToTasksIcon"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp"
+    android:layout_marginStart="32dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@drawable/ic_arrow_back_black_24dp"/>
+  <LinearLayout
+    android:id="@+id/linearLayout"
+    android:layout_width="0dp"
+
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.4"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/createTaskPageTopBar">
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/inputTaskTitleLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Title"
+      app:errorEnabled="true"
+      app:hintAnimationEnabled="true"
+      app:hintEnabled="true">
+
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/inputTaskTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/inputTaskDescriptionLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Description"
+      app:counterMaxLength="200"
+      app:errorEnabled="true"
+      app:hintAnimationEnabled="true">
+
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/inputTaskDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <EditText
+      android:id="@+id/inputDeadlineDate"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:clickable="true"
+      android:drawableRight="@drawable/ic_date_range_black_24dp"
+      android:editable="false"
+      android:focusable="false"
+      android:layout_marginBottom="5dp"
+      android:hint="Deadline date"
+      android:inputType="text"/>
+
+    <EditText
+      android:id="@+id/reminderTime"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:clickable="true"
+      android:drawableRight="@drawable/ic_access_time_black_24dp"
+      android:editable="false"
+      android:focusable="false"
+      android:hint="Remind me at"
+      android:layout_marginBottom="5dp"
+      android:inputType="text"/>
+    <RadioGroup
+      android:id="@+id/reminderTypeGroup"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:checkedButton="@+id/dailyNotification"
+      android:orientation="horizontal">
+      <RadioButton
+        android:id="@+id/dailyNotification"
+        android:layout_width="122dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:buttonTint="@color/colorPrimaryDark"
+        android:text="Daily"/>
+      <RadioButton
+        android:id="@+id/oneTimeNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:buttonTint="@color/colorPrimaryDark"
+        android:text=" One time before"/>
+    </RadioGroup>
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/subtaskLabel"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="20dp"
+    android:textColor="#000000"
+    android:textSize="16sp"
+    android:text="Subtasks:"
+    android:textStyle="bold"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
+
+  <LinearLayout
+    android:id="@+id/linearLayout2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/subtaskLabel">
+    <TextView
+      android:id="@+id/addSubtaskLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:hint="Add new"/>
+    <ImageView
+      android:id="@+id/imgViewAdd"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@drawable/ic_add_box_black_24dp"
+      android:layout_marginStart="5dp"
+      android:clickable="true"
+      android:layout_gravity="center_vertical"
+      android:focusable="false"
+      />
+  </LinearLayout>
+
+  <ListView
+    android:id="@+id/subtaskListView"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:isScrollContainer="true"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout2"/>
+  <Button
+    android:id="@+id/submitCreateTask"
+    android:layout_width="124dp"
+    android:layout_height="33dp"
+    android:layout_marginBottom="16dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/button_border_shadow"
+    android:text="Submit"
+    android:textColor="@android:color/white"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

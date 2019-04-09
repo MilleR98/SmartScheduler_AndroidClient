@@ -66,8 +66,7 @@
     android:layout_marginTop="116dp"
     android:layout_marginStart="56dp"
     android:src="@drawable/ic_exit_to_app_24dp"
-    android:clickable="true"
-    android:focusable="true"
+
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/noEventsBackground"/>
   <ImageView
@@ -128,7 +127,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
-    android:layout_marginEnd="36dp"
+    android:layout_marginEnd="40dp"
     android:text="Notifications"
     android:textAlignment="center"
     android:textColor="@color/colorPrimaryDark"

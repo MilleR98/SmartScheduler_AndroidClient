@@ -1,6 +1,8 @@
 package com.example.smartshedulerapp.api;
 
-import com.example.smartshedulerapp.model.SimpleTask;
+import com.example.smartshedulerapp.model.CreateTaskDTO;
+import com.example.smartshedulerapp.model.TaskPreviewDTO;
+import com.google.android.gms.tasks.Task;
 import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -14,16 +16,16 @@ import retrofit2.http.Path;
 public interface TaskApiService {
 
   @GET("/tasks")
-  Call<List<SimpleTask>> getUserTasks();
+  Call<List<TaskPreviewDTO>> getUserTasks();
 
   @GET("/tasks/{id}")
-  Call<SimpleTask> getTaskInfo(@Path("id") String id);
+  Call<Task> getTaskInfo(@Path("id") String id);
 
   @POST("/tasks")
-  Call<ResponseBody> createTask(@Body SimpleTask simpleTask);
+  Call<ResponseBody> createTask(@Body CreateTaskDTO simpleTask);
 
   @PUT("/tasks/{id}")
-  Call<ResponseBody> updateTask(@Path("id") String id, @Body SimpleTask simpleTask);
+  Call<ResponseBody> updateTask(@Path("id") String id, @Body CreateTaskDTO createTaskDTO);
 
   @DELETE("/tasks/{id}")
   Call<ResponseBody> removeTask(@Path("id") String id);

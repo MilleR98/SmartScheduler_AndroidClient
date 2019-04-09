@@ -16,6 +16,16 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme"
     tools:ignore="GoogleAppIndexingWarning">
+    <activity android:name=".activity.NotificationsActivity">
+    </activity>
+
+    <meta-data
+      android:name="com.google.firebase.messaging.default_notification_icon"
+      android:resource="@drawable/ic_date_range_black_36dp"/>
+    <meta-data
+      android:name="com.google.firebase.messaging.default_notification_color"
+      android:resource="@color/colorAccent"/>
+
     <service android:name=".service.MyFirebaseMessagingService">
       <intent-filter>
         <action android:name="com.google.firebase.MESSAGING_EVENT"/>
