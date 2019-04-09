@@ -46,7 +46,9 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
   TaskApiService taskApiService;
 
   private Date selectedDeadlineDate;
+  private String selectedDeadlineDateString;
   private Date selectedReminderDate;
+  private String selectedReminderDateString;
   boolean isDealineSelecting;
 
   @BindView(R.id.inputTaskTitle)
@@ -122,8 +124,8 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
     ReminderType reminderType = checkedRadioButtonId == R.id.dailyNotification ? DAILY : ONE_TIME;
 
     CreateTaskDTO createTaskDTO = new CreateTaskDTO();
-    createTaskDTO.setDeadlineDate(selectedDeadlineDate);
-    createTaskDTO.setReminderTime(selectedReminderDate);
+    createTaskDTO.setDeadlineDate(selectedDeadlineDateString);
+    createTaskDTO.setReminderTime(selectedReminderDateString);
     createTaskDTO.setTitle(inputTaskTitle.getText().toString());
     createTaskDTO.setDescription(inputTaskDescription.getText().toString());
     createTaskDTO.setSubtaskList(subtaskList);
@@ -192,10 +194,12 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
 
       instance.set(selectedDeadlineDate.getYear(), selectedDeadlineDate.getMonth(), selectedDeadlineDate.getDay(), hourOfDay, minute);
       inputDeadlineDate.setText(DateFormat.format("yyyy-MM-dd HH:mm", instance));
+      selectedDeadlineDateString = DateFormat.format("yyyy-MM-ddTHH:mm", instance).toString();
     } else {
 
       instance.set(selectedReminderDate.getYear(), selectedReminderDate.getMonth(), selectedReminderDate.getDay(), hourOfDay, minute);
       reminderTime.setText(DateFormat.format("yyyy-MM-dd HH:mm", instance));
+      selectedReminderDateString = DateFormat.format("yyyy-MM-ddTHH:mm", instance).toString();
     }
   }
 

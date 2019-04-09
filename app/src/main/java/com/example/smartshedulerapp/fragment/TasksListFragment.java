@@ -1,6 +1,7 @@
 package com.example.smartshedulerapp.fragment;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,7 +22,6 @@ import com.example.smartshedulerapp.di_config.component.DaggerTaskEventComponent
 import com.example.smartshedulerapp.di_config.component.TaskEventComponent;
 import com.example.smartshedulerapp.di_config.module.AppModule;
 import com.example.smartshedulerapp.model.TaskPreviewDTO;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -46,8 +46,6 @@ public class TasksListFragment extends Fragment {
 
   RecyclerView.Adapter adapter;
 
-  List<TaskPreviewDTO> taskPreviewDTOList;
-
   public TasksListFragment() {
 
   }
@@ -63,23 +61,24 @@ public class TasksListFragment extends Fragment {
 
     taskListRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-    taskPreviewDTOList = new ArrayList<>();
-    adapter = new TaskPreviewAdapter(taskPreviewDTOList);
-    taskListRecycleView.setAdapter(adapter);
+    ProgressDialog progressDialog = new ProgressDialog(getContext());
+    progressDialog.setMessage("Loading data...");
+    progressDialog.show();
 
     taskApiService.getUserTasks().enqueue(new Callback<List<TaskPreviewDTO>>() {
 
       @Override
       public void onResponse(Call<List<TaskPreviewDTO>> call, Response<List<TaskPreviewDTO>> response) {
 
+        progressDialog.dismiss();
         if (response.isSuccessful()) {
 
           List<TaskPreviewDTO> previewList = response.body();
 
           if (!previewList.isEmpty()) {
 
-            taskPreviewDTOList.addAll(1, previewList);
-            adapter.notifyItemChanged(1);
+            adapter = new TaskPreviewAdapter(previewList);
+            taskListRecycleView.setAdapter(adapter);
             emptyListBackground.setVisibility(View.GONE);
           }
         }
@@ -100,5 +99,4 @@ public class TasksListFragment extends Fragment {
     Intent intent = new Intent(getContext(), CreateTaskActivity.class);
     startActivityForResult(intent, REQUEST_TASK_CREATED);
   }
-
 }

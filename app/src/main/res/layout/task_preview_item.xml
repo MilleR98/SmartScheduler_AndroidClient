@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/itemPreviewLayout"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="@drawable/item_flat"
+  android:layout_height="wrap_content"
   android:orientation="horizontal"
-  android:layout_gravity="center_vertical">
-  <TableRow android:layout_margin="10dp">
+  android:background="@drawable/item_flat"
+  android:layout_gravity="center_vertical"
+  android:layout_marginBottom="10dp">
+  <TableRow android:layout_margin="7dp"
+    android:background="?android:selectableItemBackground">
     <TextView
       android:id="@+id/taskPreviewTitle"
       android:layout_width="wrap_content"
@@ -27,21 +30,24 @@
       android:text="Progress: 1 of 3"/>
   </TableRow>
 
-  <TableRow android:layout_margin="10dp">
+  <TableRow android:layout_marginEnd="7dp"
+    android:layout_marginStart="7dp"
+    android:layout_marginBottom="10dp">
+    <TextView
+      android:id="@+id/taskPreviewDeadline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="0.5"
+      android:textSize="12sp"
+      android:textAlignment="center"
+      android:text="Deadline: 2019-04-01"/>
     <TextView
       android:id="@+id/taskPreviewCreatedAt"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_weight="0.5"
       android:textAlignment="center"
+      android:textSize="12sp"
       android:text="Created at: 2019-03-10"/>
-
-    <TextView
-      android:id="@+id/taskPreviewDeadline"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_weight="0.5"
-      android:textAlignment="center"
-      android:text="Deadline: 2019-04-01"/>
   </TableRow>
 </TableLayout>
