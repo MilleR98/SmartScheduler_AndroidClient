@@ -99,6 +99,13 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
     openDatePickerDialog();
   }
 
+  @OnClick(R.id.reminderTime)
+  public void inputReminderTimeClick() {
+    isDealineSelecting = false;
+
+    openDatePickerDialog();
+  }
+
   private void openDatePickerDialog() {
     Calendar calendar = Calendar.getInstance();
     int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -107,13 +114,6 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
 
     DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DatePickerTheme, this, year, month, day);
     datePickerDialog.show();
-  }
-
-  @OnClick(R.id.reminderTime)
-  public void inputReminderTimeClick() {
-    isDealineSelecting = false;
-
-    openDatePickerDialog();
   }
 
   @OnClick(R.id.submitCreateTask)
@@ -148,8 +148,6 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
         Log.e(TAG, "Error with task creating", t);
       }
     });
-
-
   }
 
   @OnClick(R.id.backToTasksIcon)

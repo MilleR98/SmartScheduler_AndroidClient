@@ -16,6 +16,8 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme"
     tools:ignore="GoogleAppIndexingWarning">
+    <activity android:name=".activity.CreateEventSecondStepActivity">
+    </activity>
     <activity android:name=".activity.NotificationsActivity">
     </activity>
 
@@ -32,7 +34,7 @@
       </intent-filter>
     </service>
 
-    <activity android:name=".activity.CreateEventActivity">
+    <activity android:name=".activity.CreateEventFirstStepActivity">
     </activity>
     <activity android:name=".activity.CreateTaskActivity">
     </activity>

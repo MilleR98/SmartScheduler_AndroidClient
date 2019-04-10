@@ -5,6 +5,144 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".activity.CreateEventActivity">
+  tools:context=".activity.CreateEventFirstStepActivity">
+
+  <ImageView
+    android:id="@+id/createEventPageTopBar1"
+    android:layout_width="362dp"
+    android:layout_height="101dp"
+    android:scaleType="centerInside"
+    android:src="@drawable/double_top_bar_shape"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+    android:id="@+id/create_event_title"
+    android:textStyle="bold"
+    android:layout_width="wrap_content"
+    android:layout_height="36dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:text="New event"
+    android:textColor="#fff"
+    android:textSize="25sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+    android:id="@+id/create_event_title2"
+    android:textStyle="bold"
+    android:layout_width="wrap_content"
+    android:layout_height="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:text="General info"
+    android:textColor="#fff"
+    android:textSize="16sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.501"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/create_event_title"/>
+  <ImageView
+    android:id="@+id/backToCalendarIcon"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp"
+    android:layout_marginStart="32dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@drawable/ic_arrow_back_black_24dp"/>
+
+  <LinearLayout
+    android:id="@+id/linearLayout"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.4"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/createEventPageTopBar1">
+
+    <Spinner
+      android:id="@+id/categorySpinner"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:spinnerMode="dropdown"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/inputEventTitleLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Title"
+      app:errorEnabled="true"
+      app:hintAnimationEnabled="true"
+      app:hintEnabled="true">
+
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/inputEventTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/inputEventDescriptionLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Description"
+      app:counterMaxLength="200"
+      app:errorEnabled="true"
+      app:hintAnimationEnabled="true">
+
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/inputEventDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <EditText
+      android:id="@+id/inputStartDate"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:clickable="true"
+      android:drawableRight="@drawable/ic_date_range_black_24dp"
+      android:editable="false"
+      android:focusable="false"
+      android:hint="Start datetime"
+      android:inputType="text"/>
+
+    <EditText
+      android:id="@+id/inputEndDate"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:clickable="true"
+      android:drawableRight="@drawable/ic_date_range_black_24dp"
+      android:editable="false"
+      android:focusable="false"
+      android:hint="End datetime"
+      android:inputType="text"/>
+  </LinearLayout>
+
+  <Button
+    android:id="@+id/moveToNextStep"
+    android:layout_width="130dp"
+    android:layout_height="37dp"
+    android:layout_marginBottom="36dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/button_border_shadow"
+    android:text="Next step"
+    android:textColor="@android:color/white"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
