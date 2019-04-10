@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 public class EventMemberDTO {
 
-  private String userId;
   private String firstName;
   private String lastName;
   private String memberEmail;
   private EventMemberPermission memberPermission;
+  private boolean canInviteOthers;
 }

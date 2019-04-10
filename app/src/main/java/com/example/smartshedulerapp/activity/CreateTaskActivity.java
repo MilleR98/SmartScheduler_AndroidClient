@@ -40,7 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CreateTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,
-    CreateSubtaskDialog.ExampleDialogListener {
+    CreateSubtaskDialog.CreateSubtaskDialogListener {
 
   @Inject
   TaskApiService taskApiService;
@@ -90,7 +90,6 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
     CreateSubtaskDialog exampleDialog = new CreateSubtaskDialog();
     exampleDialog.show(getSupportFragmentManager(), "Create subtask dialog");
   }
-
 
   @OnClick(R.id.inputDeadlineDate)
   public void inputDateClick() {

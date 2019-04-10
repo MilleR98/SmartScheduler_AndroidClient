@@ -22,7 +22,7 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment {
   @BindView(R.id.subtaskPriorityGroup)
   RadioGroup subtaskPriorityGroup;
 
-  private ExampleDialogListener listener;
+  private CreateSubtaskDialogListener listener;
 
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -63,14 +63,14 @@ public class CreateSubtaskDialog extends AppCompatDialogFragment {
     super.onAttach(context);
 
     try {
-      listener = (ExampleDialogListener) context;
+      listener = (CreateSubtaskDialogListener) context;
     } catch (ClassCastException e) {
 
       throw new ClassCastException(context.toString() + "must implement ExampleDialogListener");
     }
   }
 
-  public interface ExampleDialogListener {
+  public interface CreateSubtaskDialogListener {
 
     void applyValues(String subtaskName, SubtaskPriority subtaskPriority);
   }
