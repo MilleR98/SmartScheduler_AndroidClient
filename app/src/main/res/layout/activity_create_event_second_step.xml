@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
+  android:layout_width="wrap_content"
   android:layout_height="match_parent"
   tools:context=".activity.CreateEventSecondStepActivity">
 
@@ -48,7 +48,7 @@
     app:layout_constraintTop_toBottomOf="@+id/create_event_title"/>
 
   <ImageView
-    android:id="@+id/backToCalendarIcon"
+    android:id="@+id/backToFirstStepIcon"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="24dp"
@@ -67,16 +67,6 @@
     app:layout_constraintTop_toBottomOf="@+id/create_event_title"
     app:srcCompat="@drawable/ic_outline_layers_24px"/>
 
-  <TextView
-    android:id="@+id/textView7"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="24dp"
-    android:layout_marginEnd="216dp"
-    android:text="Select event location"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/createEventPageTopBar1"/>
-
   <ImageView
     android:id="@+id/imageView5"
     android:layout_width="wrap_content"
@@ -84,21 +74,20 @@
     android:layout_marginTop="20dp"
     android:layout_marginStart="32dp"
     android:layout_marginEnd="5dp"
-    app:layout_constraintEnd_toStartOf="@+id/textView7"
+    app:layout_constraintEnd_toStartOf="@+id/locationLabel"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/createEventPageTopBar1"
     app:srcCompat="@drawable/ic_location_on_black_24dp"/>
 
-  <com.google.android.gms.maps.MapView
-    android:id="@+id/mapView"
-    android:layout_width="0dp"
-    android:layout_height="156dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginStart="32dp"
-    android:layout_marginEnd="32dp"
+  <TextView
+    android:id="@+id/locationLabel"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp"
+    android:layout_marginEnd="216dp"
+    android:text="Enter event location"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/textView7"/>
+    app:layout_constraintTop_toBottomOf="@+id/createEventPageTopBar1"/>
 
   <Button
     android:id="@+id/submitEventCreating"
@@ -115,18 +104,30 @@
     app:layout_constraintHorizontal_bias="0.498"
     app:layout_constraintStart_toStartOf="parent"/>
 
+  <ListView
+    android:id="@+id/membersListView"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
+    android:isScrollContainer="true"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/addMemberLayout"/>
+
   <LinearLayout
     android:id="@+id/addMemberLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
+    android:layout_marginTop="8dp"
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp"
     android:orientation="horizontal"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.442"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/mapView">
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
     <TextView
       android:id="@+id/addMemberLabel"
       android:layout_width="wrap_content"
@@ -144,17 +145,67 @@
       android:focusable="false"
       />
   </LinearLayout>
-  <ListView
-    android:id="@+id/membersListView"
+  <LinearLayout
+    android:id="@+id/linearLayout"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:layout_marginStart="24dp"
-    android:layout_marginEnd="24dp"
-    android:isScrollContainer="true"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:orientation="vertical"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintHorizontal_bias="1.0"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/addMemberLayout"/>
+    app:layout_constraintTop_toBottomOf="@+id/locationLabel">
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/inputCountryLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Country"
+      app:errorEnabled="true"
+      app:hintAnimationEnabled="true"
+      app:hintEnabled="true">
+
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/inputCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/inputCityLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="City"
+      app:errorEnabled="true"
+      app:hintAnimationEnabled="true"
+      app:hintEnabled="true">
+
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/inputCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/inputStreetLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Street"
+      app:errorEnabled="true"
+      app:hintAnimationEnabled="true"
+      app:hintEnabled="true">
+
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/inputStreet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+  </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

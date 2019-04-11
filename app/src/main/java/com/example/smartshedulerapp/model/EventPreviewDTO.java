@@ -8,9 +8,9 @@ import lombok.Data;
 public class EventPreviewDTO {
 
   private String eventId;
-  private String name;
+  private String title;
   private Long membersCount;
-  private LocalDateTime startTime;
-  private LocalDateTime endTime;
+  private String startTime;
+  private String endTime;
   private EventMemberPermission currentUserEventPermission;
 }

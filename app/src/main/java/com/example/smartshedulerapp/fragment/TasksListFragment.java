@@ -87,7 +87,7 @@ public class TasksListFragment extends Fragment {
 
       @Override
       public void onFailure(Call<List<TaskPreviewDTO>> call, Throwable t) {
-
+        progressDialog.dismiss();
       }
     });
 

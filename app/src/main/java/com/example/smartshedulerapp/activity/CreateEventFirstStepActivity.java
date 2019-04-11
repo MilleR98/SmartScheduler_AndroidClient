@@ -155,7 +155,7 @@ public class CreateEventFirstStepActivity extends AppCompatActivity implements O
 
       instance.set(selectedEndDate.getYear(), selectedEndDate.getMonth(), selectedEndDate.getDay(), hourOfDay, minute);
       inputEndDate.setText(DateFormat.format("yyyy-MM-dd HH:mm", instance));
-      eventDTO.setStartDate(DateFormat.format("yyyy-MM-ddTHH:mm", instance).toString());
+      eventDTO.setEndDate(DateFormat.format("yyyy-MM-ddTHH:mm", instance).toString());
     }
   }
 }

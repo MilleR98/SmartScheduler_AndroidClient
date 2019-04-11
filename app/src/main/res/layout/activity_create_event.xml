@@ -70,6 +70,20 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/createEventPageTopBar1">
 
+    <TextView
+      android:id="@+id/create_event_title3"
+      android:textStyle="bold"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="10dp"
+      android:text="Select category"
+      android:textColor="@color/colorPrimaryDark"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.501"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/create_event_title"/>
     <Spinner
       android:id="@+id/categorySpinner"
       android:layout_width="match_parent"

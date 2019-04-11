@@ -1,5 +1,7 @@
 package com.example.smartshedulerapp.adapter;
 
+import static java.lang.String.format;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,9 +13,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import com.example.smartshedulerapp.R;
 import com.example.smartshedulerapp.model.EventMemberDTO;
-import com.example.smartshedulerapp.model.Subtask;
 import com.example.smartshedulerapp.model.type.EventMemberPermission;
-import com.example.smartshedulerapp.model.type.SubtaskPriority;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 
@@ -54,19 +54,22 @@ public class MemberAdapter extends BaseAdapter {
 
     EventMemberDTO eventMember = membersList.get(position);
 
-    int priorityIcon = getPermissionIcon(EventMemberPermission.VIEWER);
-    permissionIcon.setBackground(ContextCompat.getDrawable(context, priorityIcon));
+    fullName.setText(format("%s %s", eventMember.getFirstName(), eventMember.getLastName()));
+    email.setText(eventMember.getMemberEmail());
 
-   /* imgRemove.setOnClickListener(v -> {
+    int permissionIconId = getPermissionIcon(eventMember.getMemberPermission());
+    permissionIcon.setBackground(ContextCompat.getDrawable(context, permissionIconId));
+
+    imgRemove.setOnClickListener(v -> {
       membersList.remove(position);
       notifyDataSetChanged();
-    });*/
+    });
 
     return convertView;
   }
 
   private int getPermissionIcon(EventMemberPermission eventMemberPermission) {
-    if (eventMemberPermission.equals(SubtaskPriority.LOW)) {
+    if (eventMemberPermission.equals(EventMemberPermission.EDITOR)) {
 
       return R.drawable.ic_edit_black_24dp;
     } else {

@@ -7,7 +7,7 @@ public interface Constants {
   String DEVICE_ID_KEY = "DeviceId";
   String FCM_TOKEN = "FcmToken";
 
-  String SERVER_DOMAIN = "https://c40445e1.ngrok.io";
+  String SERVER_DOMAIN = "https://6e5d346c.ngrok.io";
   String REPORT_URL = SERVER_DOMAIN + "/error/report";
   String REPORT_USERNAME = "omelnyk";
   String REPORT_PASSWORD = "developer1998";

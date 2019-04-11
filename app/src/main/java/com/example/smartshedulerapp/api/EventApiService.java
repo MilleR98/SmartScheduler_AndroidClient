@@ -19,7 +19,7 @@ import retrofit2.http.Query;
 public interface EventApiService {
 
   @GET("/events/previews")
-  Call<List<EventPreviewDTO>> getUserEventsPreview(@Query("from") LocalDateTime from, @Query("to") LocalDateTime to);
+  Call<List<EventPreviewDTO>> getUserEventsPreview(@Query("from") String from, @Query("to") String to);
 
   @GET("/events/{id}")
   Call<EventDTO> getEventInfo(@Path("id") String eventId);

@@ -41,12 +41,8 @@ public class SignInActivity extends AppCompatActivity {
 
   private static final String TAG = "LoginActivity";
   private static final int REQUEST_SIGNUP = 0;
-
-  private ProgressDialog progressDialog;
-
   @Inject
   AuthApiService authApiService;
-
   @BindView(R.id.emailInput)
   EditText emailText;
   @BindView(R.id.passwordInput)
@@ -55,6 +51,7 @@ public class SignInActivity extends AppCompatActivity {
   Button loginButton;
   @BindView(R.id.linkSignUp)
   TextView signupLink;
+  private ProgressDialog progressDialog;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
