@@ -16,6 +16,7 @@ import com.example.smartshedulerapp.di_config.component.TaskEventComponent;
 import com.example.smartshedulerapp.di_config.module.AppModule;
 import com.example.smartshedulerapp.model.TaskPreviewDTO;
 import com.example.smartshedulerapp.model.type.SubtaskStatus;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.inject.Inject;
 import lombok.RequiredArgsConstructor;
@@ -44,10 +45,11 @@ public class TaskPreviewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     TaskPreviewDTO taskPreview = itemModelList.get(position);
 
-    String createdAt = taskPreview.getCreatedAt();
+    LocalDateTime createdAt = taskPreview.getCreatedAt();
     String deadlineDate = taskPreview.getDeadlineDate();
 
     int subtasksCount = taskPreview.getSubtaskStatuses().size();
+
     long completerTasks = taskPreview.getSubtaskStatuses()
         .stream()
         .filter(subtaskStatus -> subtaskStatus.equals(SubtaskStatus.COMPLETED))

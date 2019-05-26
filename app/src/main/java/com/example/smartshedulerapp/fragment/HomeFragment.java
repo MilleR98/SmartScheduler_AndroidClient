@@ -25,7 +25,6 @@ public class HomeFragment extends Fragment {
   private TasksListFragment tasksListFragment = new TasksListFragment();
   private DailyEventsFragment dailyEventsFragment = new DailyEventsFragment();
 
-
   public HomeFragment() {
 
   }

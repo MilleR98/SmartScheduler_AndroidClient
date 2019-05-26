@@ -21,6 +21,7 @@ import com.example.smartshedulerapp.R;
 import com.example.smartshedulerapp.api.EventApiService;
 import com.example.smartshedulerapp.model.EventDTO;
 import com.example.smartshedulerapp.model.type.EventCategory;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import javax.inject.Inject;
@@ -31,8 +32,8 @@ public class CreateEventFirstStepActivity extends AppCompatActivity implements O
   @Inject
   EventApiService eventApiService;
 
-  private Date selectedStartDate;
-  private Date selectedEndDate;
+  private LocalDateTime selectedStartDate;
+  private LocalDateTime selectedEndDate;
   private boolean isStartTimeSelecting;
 
   private EventDTO eventDTO = new EventDTO();
@@ -117,10 +118,10 @@ public class CreateEventFirstStepActivity extends AppCompatActivity implements O
   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
     if (isStartTimeSelecting) {
 
-      selectedStartDate = new Date(year, month, dayOfMonth);
+      selectedStartDate = LocalDateTime.of(year, month, dayOfMonth, 0,0 );
     } else {
 
-      selectedEndDate = new Date(year, month, dayOfMonth);
+      selectedEndDate = LocalDateTime.of(year, month, dayOfMonth, 0,0 );
     }
 
     Calendar calendar = Calendar.getInstance();
@@ -136,26 +137,18 @@ public class CreateEventFirstStepActivity extends AppCompatActivity implements O
 
     if (isStartTimeSelecting) {
 
-      selectedStartDate.setHours(hourOfDay);
-      selectedStartDate.setMinutes(minute);
+      selectedStartDate = selectedStartDate.withHour(hourOfDay).withMinute(minute);
     } else {
 
-      selectedEndDate.setHours(hourOfDay);
-      selectedEndDate.setMinutes(minute);
+      selectedEndDate = selectedEndDate.withHour(hourOfDay).withMinute(minute);
     }
-
-    Calendar instance = Calendar.getInstance();
 
     if (isStartTimeSelecting) {
 
-      instance.set(selectedStartDate.getYear(), selectedStartDate.getMonth(), selectedStartDate.getDay(), hourOfDay, minute);
-      inputStartDate.setText(DateFormat.format("yyyy-MM-dd HH:mm", instance));
-      eventDTO.setStartDate(DateFormat.format("yyyy-MM-ddTHH:mm", instance).toString());
+      eventDTO.setStartDate(selectedStartDate);
     } else {
 
-      instance.set(selectedEndDate.getYear(), selectedEndDate.getMonth(), selectedEndDate.getDay(), hourOfDay, minute);
-      inputEndDate.setText(DateFormat.format("yyyy-MM-dd HH:mm", instance));
-      eventDTO.setEndDate(DateFormat.format("yyyy-MM-ddTHH:mm", instance).toString());
+      eventDTO.setEndDate(selectedEndDate);
     }
   }
 }

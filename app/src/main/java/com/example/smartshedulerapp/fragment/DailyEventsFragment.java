@@ -22,6 +22,7 @@ import com.example.smartshedulerapp.di_config.component.DaggerTaskEventComponent
 import com.example.smartshedulerapp.di_config.component.TaskEventComponent;
 import com.example.smartshedulerapp.di_config.module.AppModule;
 import com.example.smartshedulerapp.model.EventPreviewDTO;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -36,8 +37,8 @@ public class DailyEventsFragment extends Fragment {
   @Inject
   EventApiService eventApiService;
 
-
   String lastId;
+
   @BindView(R.id.eventListRecycleView)
   RecyclerView eventListRecycleView;
 
@@ -63,7 +64,8 @@ public class DailyEventsFragment extends Fragment {
 
     eventListRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-    eventApiService.getUserEventsPreview("2019-04-06T00:00", "2019-04-06T23:59").enqueue(new Callback<List<EventPreviewDTO>>() {
+    LocalDateTime now = LocalDateTime.now();
+    eventApiService.getUserEventsPreview(now.withHour(0).withMinute(0), now.withHour(23).withMinute(59)).enqueue(new Callback<List<EventPreviewDTO>>() {
 
       @Override
       public void onResponse(Call<List<EventPreviewDTO>> call, Response<List<EventPreviewDTO>> response) {

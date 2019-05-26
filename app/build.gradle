@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.smartshedulerapp"
-        minSdkVersion 25
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -59,15 +59,15 @@ dependencies {
 
     implementation 'com.google.dagger:dagger-android:2.21'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.21'
-    implementation 'com.google.firebase:firebase-core:16.0.8'
-    implementation 'com.google.firebase:firebase-messaging:17.6.0'
+    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.google.firebase:firebase-messaging:18.0.0'
 
     implementation 'com.google.dagger:dagger-android-support:2.21'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
-    implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation 'com.google.android.gms:play-services-places:16.1.0'
 }
 repositories {
     maven { url 'https://jitpack.io' }

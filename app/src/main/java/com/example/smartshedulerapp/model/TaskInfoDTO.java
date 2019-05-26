@@ -1,6 +1,7 @@
 package com.example.smartshedulerapp.model;
 
 import com.example.smartshedulerapp.model.type.ReminderType;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Data;
 
@@ -11,8 +12,8 @@ public class TaskInfoDTO {
   private String title;
   private String description;
   private ReminderType reminderType;
-  private String reminderTime;
-  private String deadlineDate;
+  private LocalDateTime reminderTime;
+  private LocalDateTime deadlineDate;
   private String createdAt;
   private List<Subtask> subtaskList;
 }

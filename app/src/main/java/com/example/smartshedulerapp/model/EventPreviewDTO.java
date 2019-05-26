@@ -10,7 +10,7 @@ public class EventPreviewDTO {
   private String eventId;
   private String title;
   private Long membersCount;
-  private String startTime;
-  private String endTime;
+  private LocalDateTime startTime;
+  private LocalDateTime endTime;
   private EventMemberPermission currentUserEventPermission;
 }

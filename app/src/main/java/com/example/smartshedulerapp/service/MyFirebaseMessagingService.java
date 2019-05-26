@@ -47,19 +47,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     String notificationChannelId = "com.example.smartshedulerapp";
 
-    if (VERSION.SDK_INT >= VERSION_CODES.O) {
+    NotificationChannel notificationChannel = new NotificationChannel(notificationChannelId, "Notification",
+        NotificationManager.IMPORTANCE_DEFAULT);
 
-      NotificationChannel notificationChannel = new NotificationChannel(notificationChannelId, "Notification",
-          NotificationManager.IMPORTANCE_DEFAULT);
-
-      notificationChannel.setDescription("Description");
-      notificationChannel.enableLights(true);
-      notificationChannel.setLightColor(Color.BLUE);
-      notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
-      notificationChannel.enableLights(true);
-      notificationManager.createNotificationChannel(notificationChannel);
-
-    }
+    notificationChannel.setDescription("Description");
+    notificationChannel.enableLights(true);
+    notificationChannel.setLightColor(Color.BLUE);
+    notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+    notificationChannel.enableLights(true);
+    notificationManager.createNotificationChannel(notificationChannel);
 
     NotificationCompat.Builder notificationBuilder = new Builder(this, notificationChannelId);
 
