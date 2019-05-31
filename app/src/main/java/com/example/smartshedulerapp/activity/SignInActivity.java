@@ -154,16 +154,6 @@ public class SignInActivity extends AppCompatActivity {
     if (requestCode == REQUEST_SIGNUP) {
       if (resultCode == RESULT_OK) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
-        builder.setTitle("Successfully sign up")
-            .setMessage("Please login to your new account")
-            .setIcon(R.drawable.ic_account_circle_black_36dp)
-            .setNegativeButton("OK", (dialog, id) -> dialog.cancel());
-
-        AlertDialog alert = builder.create();
-
-        alert.show();
-
         this.finish();
       }
     }

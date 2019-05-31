@@ -89,7 +89,7 @@ public class ViewEventActivity extends AppCompatActivity implements OnMapReadyCa
 
           currentEvent = response.body();
 
-          eventTitleLabel.setText(currentEvent.getTitle());
+          eventTitleLabel.setText(currentEvent.getName());
           EventLocation location = currentEvent.getEventLocation();
           locationLabel.setText(location.getCountry() + ", " + location.getCity() + ", " + location.getStreet());
           descriptionText.setText(currentEvent.getDescription());
@@ -126,7 +126,7 @@ public class ViewEventActivity extends AppCompatActivity implements OnMapReadyCa
 
     Intent it = new Intent(Intent.ACTION_SEND);
     it.putExtra(Intent.EXTRA_EMAIL, membersEmails);
-    it.putExtra(Intent.EXTRA_SUBJECT, currentEvent.getTitle());
+    it.putExtra(Intent.EXTRA_SUBJECT, currentEvent.getName());
     it.setType("message/rfc822");
 
     startActivity(Intent.createChooser(it, "Choose Mail App"));

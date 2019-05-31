@@ -1,8 +1,9 @@
 package com.example.smartshedulerapp.fragment;
 
 
+import static com.example.smartshedulerapp.util.Constants.DATE_TIME_FORMATTER;
+
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.example.smartshedulerapp.R;
-import com.example.smartshedulerapp.activity.ViewEventActivity;
 import com.example.smartshedulerapp.adapter.EventPreviewAdapter;
 import com.example.smartshedulerapp.api.EventApiService;
 import com.example.smartshedulerapp.di_config.component.DaggerTaskEventComponent;
@@ -65,7 +64,7 @@ public class DailyEventsFragment extends Fragment {
     eventListRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
 
     LocalDateTime now = LocalDateTime.now();
-    eventApiService.getUserEventsPreview(now.withHour(0).withMinute(0), now.withHour(23).withMinute(59)).enqueue(new Callback<List<EventPreviewDTO>>() {
+    eventApiService.getUserEventsPreview(now.format(DATE_TIME_FORMATTER), now.with(LocalDateTime.MAX).format(DATE_TIME_FORMATTER)).enqueue(new Callback<List<EventPreviewDTO>>() {
 
       @Override
       public void onResponse(Call<List<EventPreviewDTO>> call, Response<List<EventPreviewDTO>> response) {

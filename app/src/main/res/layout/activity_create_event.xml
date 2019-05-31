@@ -59,7 +59,7 @@
 
   <LinearLayout
     android:id="@+id/linearLayout"
-    android:layout_width="0dp"
+    android:layout_width="369dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="12dp"
     android:layout_marginStart="20dp"
@@ -142,6 +142,16 @@
       android:focusable="false"
       android:hint="End datetime"
       android:inputType="text"/>
+
+    <Switch
+      android:id="@+id/eventReminderSwitch"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:layout_marginBottom="5dp"
+      android:text="Do you want to receive a reminder about this event (15 minutes, 1 hour, 1 day before)"
+      android:textColor="@color/colorPrimaryDark"
+      android:textSize="16sp"/>
   </LinearLayout>
 
   <Button

@@ -11,10 +11,11 @@ import lombok.Data;
 public class EventDTO implements Serializable {
 
   private String id;
-  private String title;
+  private String name;
   private LocalDateTime startDate;
   private LocalDateTime endDate;
   private String description;
+  private boolean enableReminders;
   private EventCategory eventCategory;
   private EventLocation eventLocation;
   private EventMemberPermission currentUserPermission;

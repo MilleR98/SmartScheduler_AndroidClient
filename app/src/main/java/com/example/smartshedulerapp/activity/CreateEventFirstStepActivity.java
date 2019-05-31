@@ -1,10 +1,11 @@
 package com.example.smartshedulerapp.activity;
 
+import static com.example.smartshedulerapp.util.Constants.DATE_TIME_FORMATTER;
+
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TimePicker;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
@@ -23,7 +25,6 @@ import com.example.smartshedulerapp.model.EventDTO;
 import com.example.smartshedulerapp.model.type.EventCategory;
 import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
 import javax.inject.Inject;
 
 public class CreateEventFirstStepActivity extends AppCompatActivity implements OnItemSelectedListener,
@@ -31,13 +32,6 @@ public class CreateEventFirstStepActivity extends AppCompatActivity implements O
 
   @Inject
   EventApiService eventApiService;
-
-  private LocalDateTime selectedStartDate;
-  private LocalDateTime selectedEndDate;
-  private boolean isStartTimeSelecting;
-
-  private EventDTO eventDTO = new EventDTO();
-
   @BindView(R.id.inputEventTitle)
   EditText inputEventTitle;
   @BindView(R.id.inputEventDescription)
@@ -48,6 +42,13 @@ public class CreateEventFirstStepActivity extends AppCompatActivity implements O
   EditText inputEndDate;
   @BindView(R.id.categorySpinner)
   Spinner categorySpinner;
+  @BindView(R.id.eventReminderSwitch)
+  Switch eventReminderSwitch;
+  private LocalDateTime selectedStartDate;
+  private LocalDateTime selectedEndDate;
+  private boolean isStartTimeSelecting;
+  private boolean enableReminders;
+  private EventDTO eventDTO = new EventDTO();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,10 @@ public class CreateEventFirstStepActivity extends AppCompatActivity implements O
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     categorySpinner.setAdapter(adapter);
     categorySpinner.setOnItemSelectedListener(this);
+
+    eventReminderSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+      enableReminders = isChecked;
+    });
   }
 
   @Override
@@ -105,8 +110,9 @@ public class CreateEventFirstStepActivity extends AppCompatActivity implements O
   @OnClick(R.id.moveToNextStep)
   public void moveToNextStep() {
 
-    eventDTO.setTitle(inputEventTitle.getText().toString());
+    eventDTO.setName(inputEventTitle.getText().toString());
     eventDTO.setDescription(inputEventDescription.getText().toString());
+    eventDTO.setEnableReminders(enableReminders);
 
     Intent intent = new Intent(this, CreateEventSecondStepActivity.class);
     intent.putExtra("eventDTO", eventDTO);
@@ -118,10 +124,12 @@ public class CreateEventFirstStepActivity extends AppCompatActivity implements O
   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
     if (isStartTimeSelecting) {
 
-      selectedStartDate = LocalDateTime.of(year, month, dayOfMonth, 0,0 );
+      selectedStartDate = LocalDateTime.of(year, month, dayOfMonth, 0, 0);
+      inputStartDate.setText(selectedStartDate.format(DATE_TIME_FORMATTER));
     } else {
 
-      selectedEndDate = LocalDateTime.of(year, month, dayOfMonth, 0,0 );
+      selectedEndDate = LocalDateTime.of(year, month, dayOfMonth, 0, 0);
+      inputEndDate.setText(selectedEndDate.format(DATE_TIME_FORMATTER));
     }
 
     Calendar calendar = Calendar.getInstance();

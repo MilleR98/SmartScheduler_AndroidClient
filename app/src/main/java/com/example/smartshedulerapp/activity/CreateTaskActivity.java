@@ -2,12 +2,14 @@ package com.example.smartshedulerapp.activity;
 
 import static android.content.ContentValues.TAG;
 import static com.example.smartshedulerapp.model.type.ReminderType.DAILY;
+import static com.example.smartshedulerapp.model.type.ReminderType.MONTHLY;
 import static com.example.smartshedulerapp.model.type.ReminderType.ONE_TIME;
+import static com.example.smartshedulerapp.model.type.ReminderType.WEEKPLY;
+import static com.example.smartshedulerapp.util.Constants.DATE_TIME_FORMATTER;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -29,10 +31,10 @@ import com.example.smartshedulerapp.model.CreateTaskDTO;
 import com.example.smartshedulerapp.model.Subtask;
 import com.example.smartshedulerapp.model.type.ReminderType;
 import com.example.smartshedulerapp.model.type.SubtaskPriority;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import okhttp3.ResponseBody;
@@ -45,11 +47,7 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
 
   @Inject
   TaskApiService taskApiService;
-
-  private LocalDateTime selectedDeadlineDate;
-  private LocalDateTime selectedReminderDate;
   boolean isDeadlineSelecting;
-
   @BindView(R.id.inputTaskTitle)
   EditText inputTaskTitle;
   @BindView(R.id.inputTaskDescription)
@@ -62,9 +60,10 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
   ListView subtaskListView;
   @BindView(R.id.reminderTypeGroup)
   RadioGroup reminderTypeGroup;
-
   List<Subtask> subtaskList = new ArrayList<>();
   SubtaskAdapter subtaskAdapter;
+  private LocalDateTime selectedDeadlineDate;
+  private LocalDateTime selectedReminderDate;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +118,21 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
 
     int checkedRadioButtonId = reminderTypeGroup.getCheckedRadioButtonId();
 
-    ReminderType reminderType = checkedRadioButtonId == R.id.dailyNotification ? DAILY : ONE_TIME;
+    ReminderType reminderType;
+
+    if (checkedRadioButtonId == R.id.dailyNotification) {
+
+      reminderType = DAILY;
+    } else if (checkedRadioButtonId == R.id.weeklyNotification) {
+
+      reminderType = WEEKPLY;
+    }else if (checkedRadioButtonId == R.id.monthlyNotification) {
+
+      reminderType = MONTHLY;
+    } else {
+
+      reminderType = ONE_TIME;
+    }
 
     CreateTaskDTO createTaskDTO = new CreateTaskDTO();
     createTaskDTO.setDeadlineDate(selectedDeadlineDate);
@@ -157,10 +170,10 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
     if (isDeadlineSelecting) {
 
-      selectedDeadlineDate = LocalDateTime.of(year, month, dayOfMonth, 0, 0);
+      selectedDeadlineDate = LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0);
     } else {
 
-      selectedReminderDate = LocalDateTime.of(year, month, dayOfMonth, 0, 0);
+      selectedReminderDate = LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0);
     }
 
     Calendar calendar = Calendar.getInstance();
@@ -177,9 +190,11 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
     if (isDeadlineSelecting) {
 
       selectedDeadlineDate = selectedDeadlineDate.withHour(hourOfDay).withMinute(minute);
+      inputDeadlineDate.setText(selectedDeadlineDate.format(DATE_TIME_FORMATTER));
     } else {
 
       selectedReminderDate = selectedReminderDate.withHour(hourOfDay).withMinute(minute);
+      reminderTime.setText(selectedReminderDate.format(DATE_TIME_FORMATTER));
     }
   }
 

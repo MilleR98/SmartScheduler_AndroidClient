@@ -3,10 +3,12 @@ package com.example.smartshedulerapp.di_config.module;
 import android.content.Context;
 import com.example.smartshedulerapp.di_config.JwtInterceptor;
 import com.example.smartshedulerapp.util.Constants;
+import com.fatboyindustrial.gsonjavatime.LocalDateTimeConverter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dagger.Module;
 import dagger.Provides;
+import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
@@ -21,8 +23,9 @@ public class NetModule {
   @Provides
   @Singleton
   static Gson provideGson() {
-    GsonBuilder gsonBuilder = new GsonBuilder();
+    GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new CustomLocalDateTimeConverter());
 
+    ;
     return gsonBuilder.create();
   }
 

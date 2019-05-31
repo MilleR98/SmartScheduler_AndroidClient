@@ -10,7 +10,7 @@
 
   <ImageView
     android:id="@+id/eventTitle"
-    android:layout_width="362dp"
+    android:layout_width="0dp"
     android:layout_height="77dp"
     android:scaleType="centerInside"
     android:src="@drawable/top_bar_shape"
@@ -115,18 +115,32 @@
       android:orientation="horizontal">
       <RadioButton
         android:id="@+id/dailyNotification"
-        android:layout_width="122dp"
+        android:layout_width="84dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:buttonTint="@color/colorPrimaryDark"
         android:text="Daily"/>
+      <RadioButton
+        android:id="@+id/weeklyNotification"
+        android:layout_width="87dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:buttonTint="@color/colorPrimaryDark"
+        android:text="Weekly"/>
+      <RadioButton
+        android:id="@+id/monthlyNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:buttonTint="@color/colorPrimaryDark"
+        android:text="Monthly"/>
       <RadioButton
         android:id="@+id/oneTimeNotification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:buttonTint="@color/colorPrimaryDark"
-        android:text=" One time before"/>
+        android:text=" One time"/>
     </RadioGroup>
   </LinearLayout>
 

@@ -8,12 +8,11 @@
 
   <ImageView
     android:id="@+id/noEventsBackground"
-    android:layout_width="362dp"
+    android:layout_width="0dp"
     android:layout_height="301dp"
     android:scaleType="centerInside"
     android:src="@drawable/top_bar_shape"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"/>
   <ImageView
@@ -118,7 +117,7 @@
     android:textAlignment="center"
     android:textColor="@color/colorPrimaryDark"
     app:layout_constraintEnd_toStartOf="@+id/notificationsLabel"
-    app:layout_constraintHorizontal_bias="0.269"
+    app:layout_constraintHorizontal_bias="0.411"
     app:layout_constraintStart_toEndOf="@+id/logoutLabel"
     app:layout_constraintTop_toBottomOf="@+id/settingsIcon"/>
   <TextView

@@ -1,13 +1,13 @@
 package com.example.smartshedulerapp.activity;
 
-import static com.example.smartshedulerapp.util.Constants.AUTH_TOKEN_KEY;
+    import static com.example.smartshedulerapp.util.Constants.AUTH_TOKEN_KEY;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceManager;
-import androidx.appcompat.app.AppCompatActivity;
-import com.example.smartshedulerapp.R;
+    import android.content.Intent;
+    import android.os.Bundle;
+    import android.os.Handler;
+    import android.preference.PreferenceManager;
+    import androidx.appcompat.app.AppCompatActivity;
+    import com.example.smartshedulerapp.R;
 
 public class SplashActivity extends AppCompatActivity {
 

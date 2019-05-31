@@ -8,7 +8,7 @@
 
   <ImageView
     android:id="@+id/noEventsBackground"
-    android:layout_width="362dp"
+    android:layout_width="0dp"
     android:layout_height="77dp"
     android:scaleType="centerInside"
     android:src="@drawable/top_bar_shape"
