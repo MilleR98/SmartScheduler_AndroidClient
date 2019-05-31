@@ -124,11 +124,11 @@ public class CreateEventFirstStepActivity extends AppCompatActivity implements O
   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
     if (isStartTimeSelecting) {
 
-      selectedStartDate = LocalDateTime.of(year, month, dayOfMonth, 0, 0);
+      selectedStartDate = LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0);
       inputStartDate.setText(selectedStartDate.format(DATE_TIME_FORMATTER));
     } else {
 
-      selectedEndDate = LocalDateTime.of(year, month, dayOfMonth, 0, 0);
+      selectedEndDate = LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0);
       inputEndDate.setText(selectedEndDate.format(DATE_TIME_FORMATTER));
     }
 
