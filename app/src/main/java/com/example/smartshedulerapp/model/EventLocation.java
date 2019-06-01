@@ -10,6 +10,6 @@ public class EventLocation {
   private String city;
   private String street;
   private String buildingNumber;
-  private Long latitude;
-  private Long longitude;
+  private double latitude;
+  private double longitude;
 }

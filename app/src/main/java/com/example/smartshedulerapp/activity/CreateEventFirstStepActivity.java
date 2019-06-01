@@ -125,11 +125,10 @@ public class CreateEventFirstStepActivity extends AppCompatActivity implements O
     if (isStartTimeSelecting) {
 
       selectedStartDate = LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0);
-      inputStartDate.setText(selectedStartDate.format(DATE_TIME_FORMATTER));
     } else {
 
       selectedEndDate = LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0);
-      inputEndDate.setText(selectedEndDate.format(DATE_TIME_FORMATTER));
+
     }
 
     Calendar calendar = Calendar.getInstance();
@@ -146,9 +145,11 @@ public class CreateEventFirstStepActivity extends AppCompatActivity implements O
     if (isStartTimeSelecting) {
 
       selectedStartDate = selectedStartDate.withHour(hourOfDay).withMinute(minute);
+      inputStartDate.setText(selectedStartDate.format(DATE_TIME_FORMATTER));
     } else {
 
       selectedEndDate = selectedEndDate.withHour(hourOfDay).withMinute(minute);
+      inputEndDate.setText(selectedEndDate.format(DATE_TIME_FORMATTER));
     }
 
     if (isStartTimeSelecting) {

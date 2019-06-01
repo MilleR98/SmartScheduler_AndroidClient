@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.example.smartshedulerapp.R;
 import com.example.smartshedulerapp.fragment.CalendarFragment;
-import com.example.smartshedulerapp.fragment.ChallengesFragment;
 import com.example.smartshedulerapp.fragment.DashboardFragment;
 import com.example.smartshedulerapp.fragment.HomeFragment;
+import com.example.smartshedulerapp.fragment.NotificationsFragment;
 import com.example.smartshedulerapp.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.HashMap;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     navigationItemActions.put(R.id.navigation_home, this::navigateToHome);
     navigationItemActions.put(R.id.navigation_dashboard, this::navigateToDashboard);
     navigationItemActions.put(R.id.navigation_calendar, this::navigateToCalendar);
-    navigationItemActions.put(R.id.navigation_achievements, this::navigateToChallenges);
+    navigationItemActions.put(R.id.navigation_notifications, this::navigateToNotifications);
     navigationItemActions.put(R.id.navigation_profile, this::navigateToProfile);
   }
 
@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
     loadFragment(new ProfileFragment());
   }
 
-  private void navigateToChallenges() {
+  private void navigateToNotifications() {
 
-    loadFragment(new ChallengesFragment());
+    loadFragment(new NotificationsFragment());
   }
 
   private void navigateToCalendar() {

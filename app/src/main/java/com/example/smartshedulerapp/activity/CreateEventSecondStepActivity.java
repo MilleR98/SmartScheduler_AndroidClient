@@ -87,6 +87,9 @@ public class CreateEventSecondStepActivity extends AppCompatActivity implements 
 
       addressComponents.forEach(this::setLocationFields);
 
+      eventLocation.setLatitude(place.getLatLng().latitude);
+      eventLocation.setLongitude(place.getLatLng().longitude);
+
     }
 
     super.onActivityResult(requestCode, resultCode, intent);

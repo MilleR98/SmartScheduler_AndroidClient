@@ -43,6 +43,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+    implementation 'com.applandeo:material-calendar-view:1.6.0'
+    implementation 'com.github.shrikanth7698:Collapsible-Calendar-View-Android:v1.0.0'
     implementation 'ch.acra:acra-http:5.2.0'
     implementation 'ch.acra:acra-toast:5.2.0'
     implementation 'com.jakewharton:butterknife:10.1.0'

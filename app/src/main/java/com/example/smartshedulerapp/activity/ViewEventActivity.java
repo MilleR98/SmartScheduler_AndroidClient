@@ -1,5 +1,7 @@
 package com.example.smartshedulerapp.activity;
 
+import static com.example.smartshedulerapp.util.Constants.DATE_TIME_FORMATTER;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,11 +96,21 @@ public class ViewEventActivity extends AppCompatActivity implements OnMapReadyCa
           EventLocation location = currentEvent.getEventLocation();
           locationLabel.setText(location.getCountry() + ", " + location.getCity() + ", " + location.getStreet());
           descriptionText.setText(currentEvent.getDescription());
-          eventTimeLabel.setText(currentEvent.getStartDate() + " - " + currentEvent.getEndDate());
+          eventTimeLabel.setText(currentEvent.getStartDate().format(DATE_TIME_FORMATTER) + " - " + currentEvent.getEndDate().format(DATE_TIME_FORMATTER));
           categoryLabel.setText("Category: " + currentEvent.getEventCategory());
 
           memberAdapter = new MemberAdapter(getApplicationContext(), currentEvent.getMemberDTOList());
           membersListView.setAdapter(memberAdapter);
+
+          LatLng latLng = new LatLng(currentEvent.getEventLocation().getLatitude(), currentEvent.getEventLocation().getLongitude());
+
+          MarkerOptions markerOptions = new MarkerOptions();
+          markerOptions.position(latLng);
+
+          markerOptions.title("Here event's place");
+
+          gmap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+          gmap.addMarker(markerOptions);
 
         } else {
 

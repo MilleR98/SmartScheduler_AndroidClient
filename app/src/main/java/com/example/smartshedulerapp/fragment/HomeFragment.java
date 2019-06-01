@@ -18,12 +18,12 @@ public class HomeFragment extends Fragment {
   @BindView(R.id.switchTaskBtn)
   Button switchTaskBtn;
 
-  @BindView(R.id.switchEventsBtn)
-  Button switchEventsBtn;
+  @BindView(R.id.switchChallengesBtn)
+  Button switchChallengesBtn;
 
   private boolean isTaskFragment = true;
   private TasksListFragment tasksListFragment = new TasksListFragment();
-  private DailyEventsFragment dailyEventsFragment = new DailyEventsFragment();
+  private ChallengesFragment challengesFragment = new ChallengesFragment();
 
   public HomeFragment() {
 
@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
 
     Button switchTaskBtn = this.switchTaskBtn;
     setSwitchBtnEnabled(switchTaskBtn);
-    setSwitchBtnDisabled(switchEventsBtn);
+    setSwitchBtnDisabled(switchChallengesBtn);
 
     loadFragment(tasksListFragment);
 
@@ -75,19 +75,19 @@ public class HomeFragment extends Fragment {
   public void showTasksListFragment() {
     if (!isTaskFragment) {
       setSwitchBtnEnabled(switchTaskBtn);
-      setSwitchBtnDisabled(switchEventsBtn);
+      setSwitchBtnDisabled(switchChallengesBtn);
       isTaskFragment = true;
       loadFragment(tasksListFragment);
     }
   }
 
-  @OnClick(R.id.switchEventsBtn)
+  @OnClick(R.id.switchChallengesBtn)
   public void showEventsListFragment() {
     if (isTaskFragment) {
-      setSwitchBtnEnabled(switchEventsBtn);
+      setSwitchBtnEnabled(switchChallengesBtn);
       setSwitchBtnDisabled(switchTaskBtn);
       isTaskFragment = false;
-      loadFragment(dailyEventsFragment);
+      loadFragment(challengesFragment);
     }
   }
 

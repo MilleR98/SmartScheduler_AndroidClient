@@ -4,7 +4,8 @@ import com.example.smartshedulerapp.model.Event;
 import com.example.smartshedulerapp.model.EventDTO;
 import com.example.smartshedulerapp.model.EventMemberDTO;
 import com.example.smartshedulerapp.model.EventPreviewDTO;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -20,6 +21,9 @@ public interface EventApiService {
 
   @GET("/events/previews")
   Call<List<EventPreviewDTO>> getUserEventsPreview(@Query("from") String from, @Query("to") String to);
+
+  @GET("/events/previews")
+  Call<List<LocalDate>> getDaysWithEvents(@Query("month") Month month);
 
   @GET("/events/{id}")
   Call<EventDTO> getEventInfo(@Path("id") String eventId);

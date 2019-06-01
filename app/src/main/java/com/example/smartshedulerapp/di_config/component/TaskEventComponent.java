@@ -9,7 +9,7 @@ import com.example.smartshedulerapp.api.EventApiService;
 import com.example.smartshedulerapp.api.TaskApiService;
 import com.example.smartshedulerapp.di_config.module.UserEventApiModule;
 import com.example.smartshedulerapp.di_config.module.UserTaskApiModule;
-import com.example.smartshedulerapp.fragment.DailyEventsFragment;
+import com.example.smartshedulerapp.fragment.CalendarFragment;
 import com.example.smartshedulerapp.fragment.TasksListFragment;
 import dagger.Component;
 import javax.inject.Singleton;
@@ -30,7 +30,7 @@ public interface TaskEventComponent {
 
   void inject(TasksListFragment tasksListFragment);
 
-  void inject(DailyEventsFragment dailyEventsFragment);
+  void inject(CalendarFragment calendarFragment);
 
   void inject(TaskPreviewAdapter taskPreviewAdapter);
 
