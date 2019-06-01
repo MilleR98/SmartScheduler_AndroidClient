@@ -128,12 +128,14 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
     <TextView
       android:id="@+id/addMemberLabel"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:text="Invite people to event"/>
+
     <ImageView
       android:id="@+id/imgViewAddMember"
       android:layout_width="wrap_content"
@@ -158,53 +160,18 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/locationLabel">
 
-    <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/inputCountryLayout"
+    <EditText
+      android:id="@+id/locationInput"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="Country"
-      app:errorEnabled="true"
-      app:hintAnimationEnabled="true"
-      app:hintEnabled="true">
+      android:ems="10"
+      android:inputType="text"
+      android:textColor="@color/quantum_grey"
+      android:editable="false"
+      android:focusable="false"
+      android:clickable="true"
+      android:text="Tap to add location"/>
 
-      <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/inputCountry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/inputCityLayout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="City"
-      app:errorEnabled="true"
-      app:hintAnimationEnabled="true"
-      app:hintEnabled="true">
-
-      <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/inputCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/inputStreetLayout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="Street"
-      app:errorEnabled="true"
-      app:hintAnimationEnabled="true"
-      app:hintEnabled="true">
-
-      <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/inputStreet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true"/>
-    </com.google.android.material.textfield.TextInputLayout>
 
   </LinearLayout>
 
