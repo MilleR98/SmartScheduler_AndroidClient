@@ -2,11 +2,11 @@
 <layer-list
   xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <item android:drawable="@drawable/shadow"/>
-  <item>
+  <item android:drawable="@drawable/item_shadow"/>
+  <item android:bottom="10px" android:right="10px">
     <shape android:shape="rectangle"
       xmlns:android="http://schemas.android.com/apk/res/android">
-      <solid android:color="#E9E9E9"/>
+      <solid android:color="@color/colorPrimaryDark"/>
 
       <corners android:radius="20dip" />
     </shape>

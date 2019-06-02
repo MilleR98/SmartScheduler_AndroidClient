@@ -46,6 +46,10 @@
       android:name=".activity.ViewEventActivity">
     </activity>
 
+    <activity
+      android:name=".activity.ViewTaskActivity">
+    </activity>
+
     <activity android:name=".activity.CreateEventSecondStepActivity">
     </activity>
 

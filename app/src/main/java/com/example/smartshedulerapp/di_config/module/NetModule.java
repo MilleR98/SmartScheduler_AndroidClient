@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dagger.Module;
 import dagger.Provides;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
@@ -23,9 +24,10 @@ public class NetModule {
   @Provides
   @Singleton
   static Gson provideGson() {
-    GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new CustomLocalDateTimeConverter());
+    GsonBuilder gsonBuilder = new GsonBuilder()
+        .registerTypeAdapter(LocalDateTime.class, new CustomLocalDateTimeConverter())
+        .registerTypeAdapter(LocalDate.class, new CustomLocalDateConverter());
 
-    ;
     return gsonBuilder.create();
   }
 

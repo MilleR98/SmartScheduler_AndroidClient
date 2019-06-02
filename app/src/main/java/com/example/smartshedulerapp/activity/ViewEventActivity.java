@@ -1,11 +1,16 @@
 package com.example.smartshedulerapp.activity;
 
 import static com.example.smartshedulerapp.util.Constants.DATE_TIME_FORMATTER;
+import static java.lang.String.format;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,9 +23,11 @@ import com.example.smartshedulerapp.api.EventApiService;
 import com.example.smartshedulerapp.di_config.component.DaggerTaskEventComponent;
 import com.example.smartshedulerapp.di_config.component.TaskEventComponent;
 import com.example.smartshedulerapp.di_config.module.AppModule;
+import com.example.smartshedulerapp.dialog.InviteMemberDialog;
 import com.example.smartshedulerapp.model.EventDTO;
 import com.example.smartshedulerapp.model.EventLocation;
 import com.example.smartshedulerapp.model.EventMemberDTO;
+import com.example.smartshedulerapp.model.type.EventMemberPermission;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -28,12 +35,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import java.util.ArrayList;
 import javax.inject.Inject;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ViewEventActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class ViewEventActivity extends AppCompatActivity implements OnMapReadyCallback, InviteMemberDialog.InviteMemberDialogListener {
 
   private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
@@ -54,6 +63,12 @@ public class ViewEventActivity extends AppCompatActivity implements OnMapReadyCa
   TextView descriptionText;
   @BindView(R.id.categoryLabel)
   TextView categoryLabel;
+  @BindView(R.id.inviteMembers)
+  Button inviteMembersBtn;
+  @BindView(R.id.sendMessages)
+  Button sendMessagesBtn;
+  @BindView(R.id.membersLabel)
+  TextView membersLabel;
 
   private EventDTO currentEvent;
   private MemberAdapter memberAdapter;
@@ -75,6 +90,10 @@ public class ViewEventActivity extends AppCompatActivity implements OnMapReadyCa
       mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
     }
 
+    memberAdapter = new MemberAdapter(getApplicationContext());
+    memberAdapter.setMembersList(new ArrayList<>());
+    membersListView.setAdapter(memberAdapter);
+
     String eventId = getIntent().getStringExtra("eventId");
 
     ProgressDialog progressDialog = new ProgressDialog(this);
@@ -94,13 +113,22 @@ public class ViewEventActivity extends AppCompatActivity implements OnMapReadyCa
 
           eventTitleLabel.setText(currentEvent.getName());
           EventLocation location = currentEvent.getEventLocation();
-          locationLabel.setText(location.getCountry() + ", " + location.getCity() + ", " + location.getStreet());
+          locationLabel.setText(format("%s, %s, %s", location.getCountry(), location.getCity(), location.getStreet()));
           descriptionText.setText(currentEvent.getDescription());
-          eventTimeLabel.setText(currentEvent.getStartDate().format(DATE_TIME_FORMATTER) + " - " + currentEvent.getEndDate().format(DATE_TIME_FORMATTER));
-          categoryLabel.setText("Category: " + currentEvent.getEventCategory());
+          eventTimeLabel.setText(format("%s - %s", currentEvent.getStartDate().format(DATE_TIME_FORMATTER), currentEvent.getEndDate().format(DATE_TIME_FORMATTER)));
+          categoryLabel.setText(format("Category: %s", currentEvent.getEventCategory()));
 
-          memberAdapter = new MemberAdapter(getApplicationContext(), currentEvent.getMemberDTOList());
-          membersListView.setAdapter(memberAdapter);
+          if (currentEvent.getMemberDTOList().isEmpty()) {
+
+            membersLabel.setText("No one invited to event... Click below button to invite");
+            sendMessagesBtn.setEnabled(false);
+          } else {
+
+            membersLabel.setText("Notify all members about something?");
+          }
+
+          memberAdapter.setMembersList(currentEvent.getMemberDTOList());
+          memberAdapter.notifyDataSetChanged();
 
           LatLng latLng = new LatLng(currentEvent.getEventLocation().getLatitude(), currentEvent.getEventLocation().getLongitude());
 
@@ -210,4 +238,58 @@ public class ViewEventActivity extends AppCompatActivity implements OnMapReadyCa
     gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
   }
 
+  @OnClick(R.id.backToEventList)
+  public void onBackToEvents(){
+    finish();
+  }
+
+  @OnClick(R.id.eventActionsImg)
+  public void showPopup(View v) {
+    PopupMenu popup = new PopupMenu(this, v);
+    MenuInflater inflater = popup.getMenuInflater();
+    inflater.inflate(R.menu.event_actions, popup.getMenu());
+    popup.show();
+  }
+
+  @OnClick(R.id.inviteMembers)
+  public void addMemberClick() {
+    openInviteMemberDialog();
+  }
+
+  public void openInviteMemberDialog() {
+    InviteMemberDialog inviteMemberDialog = new InviteMemberDialog();
+    inviteMemberDialog.show(getSupportFragmentManager(), "Invite member dialog");
+  }
+
+  @Override
+  public void applyValues(String firstName, String lastName, String email, EventMemberPermission eventMemberPermission, boolean canInvite) {
+    EventMemberDTO eventMemberDTO = new EventMemberDTO();
+
+    eventMemberDTO.setFirstName(firstName);
+    eventMemberDTO.setLastName(lastName);
+    eventMemberDTO.setMemberEmail(email);
+    eventMemberDTO.setMemberPermission(eventMemberPermission);
+    eventMemberDTO.setCanInviteOthers(canInvite);
+
+    eventApiService.inviteMemberToEvent(currentEvent.getId(), eventMemberDTO).enqueue(new Callback<ResponseBody>() {
+      @Override
+      public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+        if (response.isSuccessful()) {
+          currentEvent.getMemberDTOList().add(eventMemberDTO);
+          memberAdapter.notifyDataSetChanged();
+
+          Toast.makeText(ViewEventActivity.this, eventMemberDTO.getFirstName() + " invited to event", Toast.LENGTH_LONG).show();
+          membersLabel.setText("Notify all members about something?");
+          sendMessagesBtn.setEnabled(true);
+        }
+      }
+
+      @Override
+      public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+      }
+    });
+
+  }
 }

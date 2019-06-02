@@ -1,7 +1,10 @@
 package com.example.smartshedulerapp.adapter;
 
+import static com.example.smartshedulerapp.util.Constants.DATE_TIME_FORMATTER;
 import static java.lang.String.format;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.example.smartshedulerapp.R;
+import com.example.smartshedulerapp.activity.ViewEventActivity;
+import com.example.smartshedulerapp.activity.ViewTaskActivity;
 import com.example.smartshedulerapp.api.TaskApiService;
 import com.example.smartshedulerapp.di_config.component.DaggerTaskEventComponent;
 import com.example.smartshedulerapp.di_config.component.TaskEventComponent;
@@ -27,7 +32,8 @@ public class TaskPreviewAdapter extends RecyclerView.Adapter<ViewHolder> {
   @Inject
   TaskApiService taskApiService;
 
-  private final List<TaskPreviewDTO> itemModelList;
+  private final Context context;
+  private List<TaskPreviewDTO> itemModelList;
 
   @NonNull
   @Override
@@ -45,8 +51,8 @@ public class TaskPreviewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     TaskPreviewDTO taskPreview = itemModelList.get(position);
 
-    LocalDateTime createdAt = taskPreview.getCreatedAt();
-    String deadlineDate = taskPreview.getDeadlineDate();
+    String createdAt = taskPreview.getCreatedAt().format(DATE_TIME_FORMATTER);
+    String deadlineDate = taskPreview.getDeadlineDate().format(DATE_TIME_FORMATTER);
 
     int subtasksCount = taskPreview.getSubtaskStatuses().size();
 
@@ -56,12 +62,15 @@ public class TaskPreviewAdapter extends RecyclerView.Adapter<ViewHolder> {
         .count();
 
     ((TextView) holder.itemView.findViewById(R.id.taskPreviewTitle)).setText(taskPreview.getTitle());
-    ((TextView) holder.itemView.findViewById(R.id.taskPreviewProgress)).setText(format("Progress: %s of %s", subtasksCount, completerTasks));
+    ((TextView) holder.itemView.findViewById(R.id.taskPreviewProgress)).setText(format("Progress: %s of %s", completerTasks ,subtasksCount));
     ((TextView) holder.itemView.findViewById(R.id.taskPreviewCreatedAt)).setText(format("Created at: %s", createdAt));
     ((TextView) holder.itemView.findViewById(R.id.taskPreviewDeadline)).setText(format("Deadline: %s", deadlineDate));
 
     holder.itemView.findViewById(R.id.itemPreviewLayout).setOnClickListener(v -> {
 
+      Intent intent = new Intent(context, ViewTaskActivity.class);
+      intent.putExtra("taskId", taskPreview.getId());
+      context.startActivity(intent);
     });
   }
 
@@ -71,10 +80,16 @@ public class TaskPreviewAdapter extends RecyclerView.Adapter<ViewHolder> {
     return position;
   }
 
+
+
   @Override
   public int getItemCount() {
 
     return itemModelList.size();
+  }
+
+  public void setItemModelList(List<TaskPreviewDTO> itemModelList) {
+    this.itemModelList = itemModelList;
   }
 
   class ViewHolder extends RecyclerView.ViewHolder {

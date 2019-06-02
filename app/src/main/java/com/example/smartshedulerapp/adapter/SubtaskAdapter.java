@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import com.example.smartshedulerapp.R;
+import com.example.smartshedulerapp.dialog.InviteMemberDialog.InviteMemberDialogListener;
 import com.example.smartshedulerapp.model.Subtask;
 import com.example.smartshedulerapp.model.type.SubtaskPriority;
 import java.util.List;
@@ -19,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class SubtaskAdapter extends BaseAdapter {
 
   private final Context context;
-  private final List<Subtask> itemModelList;
+  private List<Subtask> itemModelList;
 
   @Override
   public int getCount() {
@@ -74,5 +75,9 @@ public class SubtaskAdapter extends BaseAdapter {
 
       return R.drawable.ic_arrow_upward_red_24dp;
     }
+  }
+
+  public void setItemModelList(List<Subtask> itemModelList) {
+    this.itemModelList = itemModelList;
   }
 }

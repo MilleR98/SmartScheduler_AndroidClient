@@ -5,6 +5,7 @@ import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -55,6 +57,8 @@ public class CalendarFragment extends Fragment {
 
   ProgressDialog progressDialog;
 
+  List<EventPreviewDTO> eventPreviewList = new ArrayList<>();
+
   public CalendarFragment() {
   }
 
@@ -76,11 +80,21 @@ public class CalendarFragment extends Fragment {
     progressDialog = new ProgressDialog(getContext());
     eventListRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-    fetchDaysWithEvents(null);
+    adapter = new EventPreviewAdapter(getContext());
+    eventListRecycleView.setAdapter(adapter);
+    ((EventPreviewAdapter) adapter).setItemModelList(eventPreviewList);
+
+    fetchDaysWithEvents(LocalDate.now().getMonth());
 
     calendarView.expand(0);
     fetchSelectedDayEvents(calendarView.getSelectedDay());
 
+    configureCalendarListener();
+
+    return view;
+  }
+
+  private void configureCalendarListener() {
     calendarView.setCalendarListener(new CalendarListener() {
       @Override
       public void onDaySelect() {
@@ -113,8 +127,6 @@ public class CalendarFragment extends Fragment {
 
       }
     });
-
-    return view;
   }
 
   private void fetchDaysWithEvents(Month month) {
@@ -129,7 +141,7 @@ public class CalendarFragment extends Fragment {
 
           if (!previewList.isEmpty()) {
 
-            previewList.forEach(eventDate -> calendarView.addEventTag(eventDate.getYear(), eventDate.getMonthValue(), eventDate.getDayOfMonth()));
+            previewList.forEach(eventDate -> calendarView.addEventTag(eventDate.getYear(), eventDate.getMonthValue() - 1, eventDate.getDayOfMonth()));
           }
         }
 
@@ -137,7 +149,7 @@ public class CalendarFragment extends Fragment {
 
       @Override
       public void onFailure(Call<List<LocalDate>> call, Throwable t) {
-
+        Log.e("", t.getMessage());
       }
     });
   }
@@ -154,15 +166,15 @@ public class CalendarFragment extends Fragment {
             progressDialog.dismiss();
             if (response.isSuccessful()) {
 
-              List<EventPreviewDTO> previewList = response.body();
+              eventPreviewList = response.body();
 
-              if (!previewList.isEmpty()) {
+              if (!eventPreviewList.isEmpty()) {
 
-                lastId = previewList.get(previewList.size() - 1).getEventId();
-                adapter = new EventPreviewAdapter(getContext(), previewList);
-                eventListRecycleView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                lastId = eventPreviewList.get(eventPreviewList.size() - 1).getEventId();
               }
+
+              ((EventPreviewAdapter) adapter).setItemModelList(eventPreviewList);
+              adapter.notifyDataSetChanged();
             }
 
           }

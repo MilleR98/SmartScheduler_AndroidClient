@@ -75,7 +75,8 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
     TaskEventComponent authComponent = DaggerTaskEventComponent.builder().appModule(new AppModule(this)).build();
     authComponent.inject(this);
 
-    subtaskAdapter = new SubtaskAdapter(getApplicationContext(), subtaskList);
+    subtaskAdapter = new SubtaskAdapter(getApplicationContext());
+    subtaskAdapter.setItemModelList(subtaskList);
     subtaskListView.setAdapter(subtaskAdapter);
   }
 

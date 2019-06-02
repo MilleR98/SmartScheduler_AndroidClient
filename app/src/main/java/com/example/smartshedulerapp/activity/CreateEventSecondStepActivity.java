@@ -63,7 +63,8 @@ public class CreateEventSecondStepActivity extends AppCompatActivity implements 
     TaskEventComponent eventComponent = DaggerTaskEventComponent.builder().appModule(new AppModule(this)).build();
     eventComponent.inject(this);
 
-    memberAdapter = new MemberAdapter(getApplicationContext(), memberList);
+    memberAdapter = new MemberAdapter(getApplicationContext());
+    memberAdapter.setMembersList(memberList);
     membersListView.setAdapter(memberAdapter);
 
     Places.initialize(getApplicationContext(), "AIzaSyAE_63RwAK2MUch6KCCiQrRoJDfNvFtE6Q");
@@ -110,7 +111,6 @@ public class CreateEventSecondStepActivity extends AppCompatActivity implements 
       eventLocation.setCountry(addressComponent.getShortName());
     }
   }
-
 
   @OnClick(R.id.addMemberLayout)
   public void addMemberClick() {

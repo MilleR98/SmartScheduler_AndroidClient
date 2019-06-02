@@ -1,6 +1,7 @@
 package com.example.smartshedulerapp.api;
 
 import com.example.smartshedulerapp.model.CreateTaskDTO;
+import com.example.smartshedulerapp.model.Subtask;
 import com.example.smartshedulerapp.model.TaskInfoDTO;
 import com.example.smartshedulerapp.model.TaskPreviewDTO;
 import java.util.List;
@@ -23,6 +24,12 @@ public interface TaskApiService {
 
   @POST("/tasks")
   Call<ResponseBody> createTask(@Body CreateTaskDTO simpleTask);
+
+  @POST("/subtasks")
+  Call<ResponseBody> createSubtask(@Body Subtask subtask);
+
+  @DELETE("/subtasks/{id}")
+  Call<ResponseBody> deleterSubtask(@Path("id") String id);
 
   @PUT("/tasks/{id}")
   Call<ResponseBody> updateTask(@Path("id") String id, @Body CreateTaskDTO createTaskDTO);

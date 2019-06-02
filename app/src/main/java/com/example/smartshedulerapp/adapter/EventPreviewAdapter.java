@@ -1,5 +1,6 @@
 package com.example.smartshedulerapp.adapter;
 
+import static com.example.smartshedulerapp.util.Constants.DATE_TIME_FORMATTER;
 import static java.lang.String.format;
 
 import android.content.Context;
@@ -27,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class EventPreviewAdapter extends RecyclerView.Adapter<EventPreviewAdapter.ViewHolder> {
 
   private final Context context;
-  private final List<EventPreviewDTO> itemModelList;
+  private List<EventPreviewDTO> itemModelList;
 
   @Inject
   EventApiService taskApiService;
@@ -48,12 +49,13 @@ public class EventPreviewAdapter extends RecyclerView.Adapter<EventPreviewAdapte
 
     EventPreviewDTO eventPreviewDTO = itemModelList.get(position);
 
-    ((TextView) holder.itemView.findViewById(R.id.eventDate)).setText(format("%s - %s", eventPreviewDTO.getStartTime(), eventPreviewDTO.getEndTime()));
+    ((TextView) holder.itemView.findViewById(R.id.eventDate)).setText(format("%s - %s",
+        eventPreviewDTO.getStartTime().format(DATE_TIME_FORMATTER), eventPreviewDTO.getEndTime().format(DATE_TIME_FORMATTER)));
     ((TextView) holder.itemView.findViewById(R.id.eventMembersCount)).setText(format("%d members invited", eventPreviewDTO.getMembersCount()));
-    ((TextView) holder.itemView.findViewById(R.id.eventTitle)).setText(eventPreviewDTO.getTitle());
+    ((TextView) holder.itemView.findViewById(R.id.eventTitle)).setText(eventPreviewDTO.getName());
     ((TextView) holder.itemView.findViewById(R.id.owner)).setText(eventPreviewDTO.getCurrentUserEventPermission().toString());
 
-    ((TextView) holder.itemView.findViewById(R.id.owner)).setOnClickListener(v -> {
+    holder.itemView.findViewById(R.id.owner).setOnClickListener(v -> {
 
       Intent intent = new Intent(context, ViewEventActivity.class);
       intent.putExtra("eventId", eventPreviewDTO.getEventId());
@@ -71,6 +73,10 @@ public class EventPreviewAdapter extends RecyclerView.Adapter<EventPreviewAdapte
   public int getItemCount() {
 
     return itemModelList.size();
+  }
+
+  public void setItemModelList(List<EventPreviewDTO> itemModelList) {
+    this.itemModelList = itemModelList;
   }
 
   class ViewHolder extends RecyclerView.ViewHolder {

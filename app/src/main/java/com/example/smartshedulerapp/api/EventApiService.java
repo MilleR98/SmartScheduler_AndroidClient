@@ -22,14 +22,17 @@ public interface EventApiService {
   @GET("/events/previews")
   Call<List<EventPreviewDTO>> getUserEventsPreview(@Query("from") String from, @Query("to") String to);
 
-  @GET("/events/previews")
+  @GET("/events/day-markers")
   Call<List<LocalDate>> getDaysWithEvents(@Query("month") Month month);
 
   @GET("/events/{id}")
   Call<EventDTO> getEventInfo(@Path("id") String eventId);
 
-  @POST("/events/{id}/invite")
+  @POST("/events/{id}/members/invite")
   Call<ResponseBody> inviteMemberToEvent(@Path("id") String eventId, @Body EventMemberDTO eventMemberDTO);
+
+  @DELETE("/events/{eventId}/members/{memberId}")
+  Call<ResponseBody> deleteMemberFromEvent(@Path("eventId") String eventId, @Path("memberId") String memberId);
 
   @POST("/events")
   Call<ResponseBody> createEvent(@Body EventDTO eventDTO);

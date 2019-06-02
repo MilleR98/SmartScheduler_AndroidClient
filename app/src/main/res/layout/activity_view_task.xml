@@ -8,7 +8,7 @@
   tools:context=".activity.ViewEventActivity">
 
   <ImageView
-    android:id="@+id/eventTitle"
+    android:id="@+id/taskTitle"
     android:layout_width="0dp"
     android:layout_height="77dp"
     android:scaleType="centerInside"
@@ -18,14 +18,14 @@
     app:layout_constraintTop_toTopOf="parent"/>
 
   <TextView
-    android:id="@+id/eventTitleLabel"
+    android:id="@+id/taskTitleBarLabel"
     android:textStyle="bold"
     android:layout_width="wrap_content"
     android:layout_height="36dp"
     android:layout_marginTop="16dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-    android:text="New task"
+    android:text="Task view"
     android:textColor="#fff"
     android:textSize="25sp"
     app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
     app:layout_constraintTop_toTopOf="parent"/>
 
   <ImageView
-    android:id="@+id/backToEventList"
+    android:id="@+id/backToTaskList"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="24dp"
@@ -41,19 +41,18 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:srcCompat="@drawable/ic_arrow_back_black_24dp"/>
+
   <include
-    layout="@layout/content_view_event"
+    layout="@layout/content_view_task"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/eventTitle"/>
+    app:layout_constraintTop_toBottomOf="@+id/taskTitle"/>
+
   <ImageView
-    android:id="@+id/eventActionsImg"
+    android:id="@+id/taskActionsImg"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="24dp"

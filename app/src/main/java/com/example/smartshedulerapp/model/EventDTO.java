@@ -4,6 +4,7 @@ import com.example.smartshedulerapp.model.type.EventCategory;
 import com.example.smartshedulerapp.model.type.EventMemberPermission;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 
@@ -19,5 +20,5 @@ public class EventDTO implements Serializable {
   private EventCategory eventCategory;
   private EventLocation eventLocation;
   private EventMemberPermission currentUserPermission;
-  private List<EventMemberDTO> memberDTOList;
+  private List<EventMemberDTO> memberDTOList = new ArrayList<>();
 }

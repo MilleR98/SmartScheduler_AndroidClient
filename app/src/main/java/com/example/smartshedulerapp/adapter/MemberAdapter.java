@@ -21,7 +21,11 @@ import lombok.RequiredArgsConstructor;
 public class MemberAdapter extends BaseAdapter {
 
   private final Context context;
-  private final List<EventMemberDTO> membersList;
+  private List<EventMemberDTO> membersList;
+
+  public void setMembersList(List<EventMemberDTO> membersList) {
+    this.membersList = membersList;
+  }
 
   @Override
   public int getCount() {

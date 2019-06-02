@@ -3,6 +3,7 @@ package com.example.smartshedulerapp.di_config.component;
 import com.example.smartshedulerapp.activity.CreateEventSecondStepActivity;
 import com.example.smartshedulerapp.activity.CreateTaskActivity;
 import com.example.smartshedulerapp.activity.ViewEventActivity;
+import com.example.smartshedulerapp.activity.ViewTaskActivity;
 import com.example.smartshedulerapp.adapter.EventPreviewAdapter;
 import com.example.smartshedulerapp.adapter.TaskPreviewAdapter;
 import com.example.smartshedulerapp.api.EventApiService;
@@ -23,6 +24,8 @@ public interface TaskEventComponent {
   TaskApiService getTaskApiService();
 
   void inject(CreateTaskActivity createTaskActivity);
+
+  void inject(ViewTaskActivity viewTaskActivity);
 
   void inject(ViewEventActivity createTaskActivity);
 

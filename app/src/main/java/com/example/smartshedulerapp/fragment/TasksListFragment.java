@@ -22,6 +22,7 @@ import com.example.smartshedulerapp.di_config.component.DaggerTaskEventComponent
 import com.example.smartshedulerapp.di_config.component.TaskEventComponent;
 import com.example.smartshedulerapp.di_config.module.AppModule;
 import com.example.smartshedulerapp.model.TaskPreviewDTO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -45,6 +46,7 @@ public class TasksListFragment extends Fragment {
   RecyclerView taskListRecycleView;
 
   RecyclerView.Adapter adapter;
+  List<TaskPreviewDTO> taskPreviewList = new ArrayList<>();
 
   public TasksListFragment() {
 
@@ -61,10 +63,20 @@ public class TasksListFragment extends Fragment {
 
     taskListRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+    adapter = new TaskPreviewAdapter(getContext());
+    taskListRecycleView.setAdapter(adapter);
+    ((TaskPreviewAdapter) adapter).setItemModelList(taskPreviewList);
+
     ProgressDialog progressDialog = new ProgressDialog(getContext());
     progressDialog.setMessage("Loading data...");
     progressDialog.show();
 
+    fetchTaskPreviews(progressDialog);
+
+    return view;
+  }
+
+  private void fetchTaskPreviews(ProgressDialog progressDialog) {
     taskApiService.getUserTasks().enqueue(new Callback<List<TaskPreviewDTO>>() {
 
       @Override
@@ -73,14 +85,15 @@ public class TasksListFragment extends Fragment {
         progressDialog.dismiss();
         if (response.isSuccessful()) {
 
-          List<TaskPreviewDTO> previewList = response.body();
+          taskPreviewList = response.body();
 
-          if (!previewList.isEmpty()) {
+          if (!taskPreviewList.isEmpty()) {
 
-            adapter = new TaskPreviewAdapter(previewList);
-            taskListRecycleView.setAdapter(adapter);
             emptyListBackground.setVisibility(View.GONE);
           }
+
+          ((TaskPreviewAdapter) adapter).setItemModelList(taskPreviewList);
+          adapter.notifyDataSetChanged();
         }
 
       }
@@ -90,8 +103,6 @@ public class TasksListFragment extends Fragment {
         progressDialog.dismiss();
       }
     });
-
-    return view;
   }
 
   @OnClick(R.id.createTaskBtn)

@@ -6,8 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import com.example.smartshedulerapp.R;
+import com.example.smartshedulerapp.api.ChallengeApiService;
+import com.example.smartshedulerapp.di_config.component.ChallengeComponent;
+import com.example.smartshedulerapp.di_config.component.DaggerChallengeComponent;
+import com.example.smartshedulerapp.di_config.module.AppModule;
+import javax.inject.Inject;
 
 public class ChallengesFragment extends Fragment {
+
+  @Inject
+  ChallengeApiService challengeApiService;
 
   public ChallengesFragment() {
   }
@@ -24,6 +32,8 @@ public class ChallengesFragment extends Fragment {
     ChallengesFragment challengesFragment = this;
     View inflate = inflater.inflate(R.layout.fragment_challenges, container, false);
 
+    ChallengeComponent challengeComponent = DaggerChallengeComponent.builder().appModule(new AppModule(getContext())).build();
+    challengeComponent.inject(this);
 
     return inflate;
   }

@@ -16,6 +16,7 @@
       android:layout_weight="0.5"
       android:textStyle="bold"
       android:textSize="16sp"
+      android:textColor="@color/quantum_white_text"
       android:textAlignment="center"
       android:text="Task title"/>
 
@@ -26,6 +27,7 @@
       android:layout_weight="0.5"
       android:textSize="16sp"
       android:textStyle="bold"
+      android:textColor="@color/quantum_white_text"
       android:textAlignment="center"
       android:text="Progress: 1 of 3"/>
   </TableRow>
@@ -40,6 +42,7 @@
       android:layout_weight="0.5"
       android:textSize="12sp"
       android:textAlignment="center"
+      android:textColor="@color/quantum_white_text"
       android:text="Deadline: 2019-04-01"/>
     <TextView
       android:id="@+id/taskPreviewCreatedAt"
@@ -47,6 +50,7 @@
       android:layout_height="wrap_content"
       android:layout_weight="0.5"
       android:textAlignment="center"
+      android:textColor="@color/quantum_white_text"
       android:textSize="12sp"
       android:text="Created at: 2019-03-10"/>
   </TableRow>

@@ -42,9 +42,6 @@ public class ProfileFragment extends Fragment {
   @BindView(R.id.settingsIcon)
   ImageView settingsIcon;
 
-  @BindView(R.id.notificationsIcon)
-  ImageView notificationIcon;
-
   public ProfileFragment() {
 
   }
@@ -105,11 +102,6 @@ public class ProfileFragment extends Fragment {
 
   @OnClick(R.id.settingsIcon)
   public void onSettingsIconClick() {
-
-  }
-
-  @OnClick(R.id.notificationsIcon)
-  public void onNotificationIconClick() {
 
   }
 }

@@ -50,7 +50,7 @@
     android:ems="10"
     android:hint="Password"
     android:inputType="textPassword"
-    android:text="19011998"
+    android:text="Oleg1998"
     app:layout_constraintBottom_toTopOf="@+id/signInButton"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"/>
