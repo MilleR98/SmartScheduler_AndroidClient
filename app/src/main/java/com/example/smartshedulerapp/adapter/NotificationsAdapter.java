@@ -55,8 +55,8 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     ((TextView) holder.itemView.findViewById(R.id.notificationContent)).setText(notification.getContent());
 
     if (!notification.getNotificationType().equals(NotificationType.INVITATION)) {
-      holder.itemView.findViewById(R.id.acceptInvitation).setVisibility(View.INVISIBLE);
-      holder.itemView.findViewById(R.id.declineInvitation).setVisibility(View.INVISIBLE);
+      holder.itemView.findViewById(R.id.acceptInvitation).setVisibility(View.GONE);
+      holder.itemView.findViewById(R.id.declineInvitation).setVisibility(View.GONE);
     } else {
 
       holder.itemView.findViewById(R.id.acceptInvitation).setOnClickListener(v -> {

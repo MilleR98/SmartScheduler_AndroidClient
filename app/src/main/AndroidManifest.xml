@@ -15,6 +15,7 @@
   <uses-permission android:name="com.github.hathibelagal.pn.permission.C2D_MESSAGE"/>
 
   <application
+    tools:replace="android:allowBackup"
     android:allowBackup="false"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"

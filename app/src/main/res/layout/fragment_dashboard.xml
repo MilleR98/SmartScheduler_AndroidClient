@@ -9,9 +9,9 @@
   <ImageView
     android:id="@+id/noEventsBackground"
     android:layout_width="0dp"
-    android:layout_height="77dp"
+    android:layout_height="120dp"
     android:scaleType="centerInside"
-    android:src="@drawable/top_bar_shape"
+    android:src="@drawable/double_top_bar_shape"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toStartOf="parent"
@@ -32,5 +32,72 @@
     app:layout_constraintHorizontal_bias="0.503"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="@+id/noEventsBackground"/>
+
+  <Button
+    android:id="@+id/switchLastWeek"
+    android:layout_width="82dp"
+    android:layout_height="20dp"
+    android:layout_marginTop="88dp"
+    android:layout_marginStart="32dp"
+    android:background="@drawable/button_flat"
+    android:text="Last week"
+    android:textColor="@android:color/white"
+    android:textSize="10sp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+  <Button
+    android:id="@+id/switchLastMonth"
+    android:layout_width="82dp"
+    android:layout_height="20dp"
+    android:layout_marginTop="88dp"
+    android:layout_marginStart="128dp"
+    android:layout_marginEnd="88dp"
+    android:background="@drawable/button_flat"
+    android:text="Last month"
+    android:textColor="@android:color/white"
+    android:textSize="10sp"
+    app:layout_constraintEnd_toEndOf="@+id/titleBar"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <Button
+    android:id="@+id/switchLastHalfYear"
+    android:layout_width="82dp"
+    android:layout_height="20dp"
+    android:layout_marginTop="88dp"
+    android:layout_marginStart="220dp"
+    android:layout_marginEnd="88dp"
+    android:background="@drawable/button_flat"
+    android:text="Last 6 month"
+    android:textColor="@android:color/white"
+    android:textSize="10sp"
+    app:layout_constraintEnd_toEndOf="@+id/titleBar"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <Button
+    android:id="@+id/switchLastYear"
+    android:layout_width="82dp"
+    android:layout_height="20dp"
+    android:layout_marginTop="88dp"
+    android:layout_marginStart="312dp"
+    android:layout_marginEnd="88dp"
+    android:background="@drawable/button_flat"
+    android:text="Last year"
+    android:textColor="@android:color/white"
+    android:textSize="10sp"
+    app:layout_constraintEnd_toEndOf="@+id/titleBar"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <com.github.mikephil.charting.charts.PieChart
+    android:id="@+id/pieChart"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_margin="10dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/noEventsBackground"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
