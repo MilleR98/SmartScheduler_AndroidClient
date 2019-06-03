@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.example.smartshedulerapp.R;
-import com.example.smartshedulerapp.activity.CreateEventFirstStepActivity;
+import com.example.smartshedulerapp.activity.CreateEventActivity;
 import com.example.smartshedulerapp.adapter.EventPreviewAdapter;
 import com.example.smartshedulerapp.api.EventApiService;
 import com.example.smartshedulerapp.di_config.component.DaggerTaskEventComponent;
@@ -189,7 +189,7 @@ public class CalendarFragment extends Fragment {
 
   @OnClick(R.id.createEventActionButton)
   public void createEventOnClick() {
-    Intent intent = new Intent(getContext(), CreateEventFirstStepActivity.class);
+    Intent intent = new Intent(getContext(), CreateEventActivity.class);
     startActivityForResult(intent, REQUEST_EVENT_CREATED);
   }
 

@@ -4,6 +4,6 @@ public enum ReminderType {
 
   DAILY,
   ONE_TIME,
-  WEEKPLY,
+  WEEKLY,
   MONTHLY
 }

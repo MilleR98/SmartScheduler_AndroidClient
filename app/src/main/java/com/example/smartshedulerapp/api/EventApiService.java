@@ -38,7 +38,7 @@ public interface EventApiService {
   Call<ResponseBody> createEvent(@Body EventDTO eventDTO);
 
   @PUT("/events/{id}")
-  Call<ResponseBody> updateEvent(@Path("id") String eventId, @Body Event eventDTO);
+  Call<ResponseBody> updateEvent(@Path("id") String eventId, @Body EventDTO eventDTO);
 
   @DELETE("/events/{id}")
   Call<ResponseBody> removeEvent(@Path("id") String eventId);

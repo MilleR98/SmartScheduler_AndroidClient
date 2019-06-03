@@ -3,6 +3,7 @@ package com.example.smartshedulerapp.activity;
 import static com.example.smartshedulerapp.util.Constants.DATE_TIME_FORMATTER;
 import static java.lang.String.format;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -239,7 +240,7 @@ public class ViewEventActivity extends AppCompatActivity implements OnMapReadyCa
   }
 
   @OnClick(R.id.backToEventList)
-  public void onBackToEvents(){
+  public void onBackToEvents() {
     finish();
   }
 
@@ -248,7 +249,61 @@ public class ViewEventActivity extends AppCompatActivity implements OnMapReadyCa
     PopupMenu popup = new PopupMenu(this, v);
     MenuInflater inflater = popup.getMenuInflater();
     inflater.inflate(R.menu.event_actions, popup.getMenu());
+
+    popup.setOnMenuItemClickListener(item -> {
+
+      boolean result = true;
+
+      if (item.getItemId() == R.id.editEvent) {
+
+        editEvent();
+      } else if (item.getItemId() == R.id.deleteEvent) {
+
+        new AlertDialog.Builder(this)
+            .setTitle("Remove confirmation")
+            .setMessage("Do you really want to delete event")
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> deleteEvent())
+            .setNegativeButton(android.R.string.no, null)
+            .show();
+
+      } else {
+
+        result = super.onOptionsItemSelected(item);
+      }
+
+      return result;
+    });
+
     popup.show();
+  }
+
+  public void editEvent() {
+
+    Intent intent = new Intent(this, CreateEventActivity.class);
+    intent.putExtra("currentEvent", currentEvent);
+    intent.putExtra("isForEdit", true);
+
+    startActivity(intent);
+  }
+
+  public void deleteEvent() {
+
+    eventApiService.removeEvent(currentEvent.getId()).enqueue(new Callback<ResponseBody>() {
+
+      @Override
+      public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+        Toast.makeText(getApplicationContext(), "Event " + currentEvent.getName() + " removed", Toast.LENGTH_LONG).show();
+        finish();
+      }
+
+      @Override
+      public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+        Toast.makeText(getApplicationContext(), "Fail with removing task", Toast.LENGTH_LONG).show();
+      }
+    });
   }
 
   @OnClick(R.id.inviteMembers)

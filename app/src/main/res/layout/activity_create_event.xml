@@ -5,17 +5,17 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".activity.CreateEventFirstStepActivity">
+  tools:context=".activity.CreateEventActivity">
 
   <ImageView
-      android:id="@+id/createEventPageTopBar1"
-      android:layout_width="0dp"
-      android:layout_height="101dp"
-      android:scaleType="centerInside"
-      android:src="@drawable/double_top_bar_shape"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+    android:id="@+id/createEventPageTopBar1"
+    android:layout_width="0dp"
+    android:layout_height="70dp"
+    android:scaleType="centerInside"
+    android:src="@drawable/top_bar_shape"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
 
   <TextView
     android:id="@+id/create_event_title"
@@ -32,21 +32,6 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"/>
 
-  <TextView
-    android:id="@+id/create_event_title2"
-    android:textStyle="bold"
-    android:layout_width="wrap_content"
-    android:layout_height="20dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-    android:text="General info"
-    android:textColor="#fff"
-    android:textSize="16sp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.501"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/create_event_title"/>
   <ImageView
     android:id="@+id/backToCalendarIcon"
     android:layout_width="wrap_content"
@@ -149,34 +134,48 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="5dp"
       android:layout_marginBottom="5dp"
+      android:buttonTint="@color/colorPrimaryDark"
       android:text="Do you want to receive a reminder about this event (15 minutes, 1 hour, 1 day before)"
       android:textColor="@color/colorPrimaryDark"
       android:textSize="16sp"/>
+    <LinearLayout
+      android:id="@+id/inputLocationLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:orientation="vertical"
+      >
+
+      <EditText
+        android:id="@+id/locationInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:editable="false"
+        android:ems="10"
+        android:focusable="false"
+        android:inputType="text"
+        android:text="Tap to add location"
+        android:textColor="@color/quantum_grey"/>
+
+    </LinearLayout>
   </LinearLayout>
 
+
   <Button
-    android:id="@+id/moveToNextStep"
+    android:id="@+id/createEventBtn"
     android:layout_width="130dp"
     android:layout_height="37dp"
     android:layout_marginBottom="36dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
     android:background="@drawable/button_border_shadow"
-    android:text="Next step"
+    android:text="Submit"
     android:textColor="@android:color/white"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     />
 
-  <ImageView
-      android:id="@+id/imageView4"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="20dp"
-      android:layout_marginEnd="4dp"
-      app:layout_constraintEnd_toStartOf="@+id/create_event_title2"
-      app:layout_constraintTop_toBottomOf="@+id/create_event_title"
-      app:srcCompat="@drawable/ic_outline_layers_24px" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

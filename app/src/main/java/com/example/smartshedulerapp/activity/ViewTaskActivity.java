@@ -1,14 +1,13 @@
 package com.example.smartshedulerapp.activity;
 
 import static com.example.smartshedulerapp.util.Constants.DATE_TIME_FORMATTER;
-import static java.lang.String.format;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -18,30 +17,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.example.smartshedulerapp.R;
-import com.example.smartshedulerapp.adapter.MemberAdapter;
 import com.example.smartshedulerapp.adapter.SubtaskAdapter;
-import com.example.smartshedulerapp.api.EventApiService;
 import com.example.smartshedulerapp.api.TaskApiService;
 import com.example.smartshedulerapp.di_config.component.DaggerTaskEventComponent;
 import com.example.smartshedulerapp.di_config.component.TaskEventComponent;
 import com.example.smartshedulerapp.di_config.module.AppModule;
 import com.example.smartshedulerapp.dialog.CreateSubtaskDialog;
-import com.example.smartshedulerapp.dialog.InviteMemberDialog;
-import com.example.smartshedulerapp.model.EventDTO;
-import com.example.smartshedulerapp.model.EventLocation;
-import com.example.smartshedulerapp.model.EventMemberDTO;
 import com.example.smartshedulerapp.model.Subtask;
 import com.example.smartshedulerapp.model.TaskInfoDTO;
-import com.example.smartshedulerapp.model.type.EventMemberPermission;
 import com.example.smartshedulerapp.model.type.ReminderType;
 import com.example.smartshedulerapp.model.type.SubtaskPriority;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.UiSettings;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -67,9 +52,8 @@ public class ViewTaskActivity extends AppCompatActivity implements CreateSubtask
   TextView taskReminderTime;
   @BindView(R.id.taskDescription)
   TextView taskDescription;
-
-  private TaskInfoDTO currentTaskInfo;
   List<Subtask> subtaskList = new ArrayList<>();
+  private TaskInfoDTO currentTaskInfo;
   private SubtaskAdapter subtaskAdapter;
 
   @Override
@@ -96,7 +80,7 @@ public class ViewTaskActivity extends AppCompatActivity implements CreateSubtask
   }
 
   @OnClick(R.id.backToTaskList)
-  public void onBackToTaskss(){
+  public void onBackToTaskss() {
     finish();
   }
 
@@ -110,11 +94,65 @@ public class ViewTaskActivity extends AppCompatActivity implements CreateSubtask
     exampleDialog.show(getSupportFragmentManager(), "Create subtask dialog");
   }
 
+  public void editTask() {
+
+    Intent intent = new Intent(this, CreateTaskActivity.class);
+    intent.putExtra("currentTask", currentTaskInfo);
+    intent.putExtra("forEdit", true);
+
+    startActivity(intent);
+  }
+
+  public void deleteTask() {
+
+    taskApiService.removeTask(currentTaskInfo.getId()).enqueue(new Callback<ResponseBody>() {
+
+      @Override
+      public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+        Toast.makeText(getApplicationContext(), "Task " + currentTaskInfo.getTitle() + " removed", Toast.LENGTH_LONG).show();
+        finish();
+      }
+
+      @Override
+      public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+        Toast.makeText(getApplicationContext(), "Fail with removing task", Toast.LENGTH_LONG).show();
+      }
+    });
+  }
+
   @OnClick(R.id.taskActionsImg)
   public void showPopup(View v) {
     PopupMenu popup = new PopupMenu(this, v);
     MenuInflater inflater = popup.getMenuInflater();
     inflater.inflate(R.menu.task_actions, popup.getMenu());
+
+    popup.setOnMenuItemClickListener(item -> {
+
+      boolean result = true;
+
+      if (item.getItemId() == R.id.editTask) {
+
+        editTask();
+      } else if (item.getItemId() == R.id.deleteTask) {
+
+        new AlertDialog.Builder(this)
+            .setTitle("Remove confirmation")
+            .setMessage("Do you really want to delete task")
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> deleteTask())
+            .setNegativeButton(android.R.string.no, null)
+            .show();
+
+      }else {
+
+        result =  super.onOptionsItemSelected(item);
+      }
+
+      return result;
+    });
+
     popup.show();
   }
 
@@ -178,7 +216,7 @@ public class ViewTaskActivity extends AppCompatActivity implements CreateSubtask
         if (response.isSuccessful()) {
 
           Toast.makeText(getApplicationContext(), "New subtask created", Toast.LENGTH_LONG).show();
-        }else {
+        } else {
 
           Toast.makeText(getApplicationContext(), "Fail create subtask", Toast.LENGTH_LONG).show();
         }

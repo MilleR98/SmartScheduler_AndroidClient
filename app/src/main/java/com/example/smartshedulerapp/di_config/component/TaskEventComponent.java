@@ -1,6 +1,5 @@
 package com.example.smartshedulerapp.di_config.component;
 
-import com.example.smartshedulerapp.activity.CreateEventSecondStepActivity;
 import com.example.smartshedulerapp.activity.CreateTaskActivity;
 import com.example.smartshedulerapp.activity.ViewEventActivity;
 import com.example.smartshedulerapp.activity.ViewTaskActivity;
@@ -28,8 +27,6 @@ public interface TaskEventComponent {
   void inject(ViewTaskActivity viewTaskActivity);
 
   void inject(ViewEventActivity createTaskActivity);
-
-  void inject(CreateEventSecondStepActivity createEventSecondStepActivity);
 
   void inject(TasksListFragment tasksListFragment);
 

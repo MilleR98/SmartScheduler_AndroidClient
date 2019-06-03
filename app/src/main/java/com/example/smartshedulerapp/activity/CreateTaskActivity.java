@@ -4,7 +4,7 @@ import static android.content.ContentValues.TAG;
 import static com.example.smartshedulerapp.model.type.ReminderType.DAILY;
 import static com.example.smartshedulerapp.model.type.ReminderType.MONTHLY;
 import static com.example.smartshedulerapp.model.type.ReminderType.ONE_TIME;
-import static com.example.smartshedulerapp.model.type.ReminderType.WEEKPLY;
+import static com.example.smartshedulerapp.model.type.ReminderType.WEEKLY;
 import static com.example.smartshedulerapp.util.Constants.DATE_TIME_FORMATTER;
 
 import android.app.DatePickerDialog;
@@ -15,7 +15,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,9 +31,9 @@ import com.example.smartshedulerapp.di_config.module.AppModule;
 import com.example.smartshedulerapp.dialog.CreateSubtaskDialog;
 import com.example.smartshedulerapp.model.CreateTaskDTO;
 import com.example.smartshedulerapp.model.Subtask;
+import com.example.smartshedulerapp.model.TaskInfoDTO;
 import com.example.smartshedulerapp.model.type.ReminderType;
 import com.example.smartshedulerapp.model.type.SubtaskPriority;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,6 +50,8 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
   @Inject
   TaskApiService taskApiService;
   boolean isDeadlineSelecting;
+  @BindView(R.id.create_task_title)
+  TextView topBarLabel;
   @BindView(R.id.inputTaskTitle)
   EditText inputTaskTitle;
   @BindView(R.id.inputTaskDescription)
@@ -64,6 +68,9 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
   SubtaskAdapter subtaskAdapter;
   private LocalDateTime selectedDeadlineDate;
   private LocalDateTime selectedReminderDate;
+  private boolean isForUpdate;
+  private CreateTaskDTO createTaskDTO;
+  private String taskId;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +85,45 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
     subtaskAdapter = new SubtaskAdapter(getApplicationContext());
     subtaskAdapter.setItemModelList(subtaskList);
     subtaskListView.setAdapter(subtaskAdapter);
+
+    isForUpdate = getIntent().getBooleanExtra("forEdit", false);
+
+    if (isForUpdate) {
+
+      TaskInfoDTO taskInfoDTO = (TaskInfoDTO) getIntent().getSerializableExtra("currentTask");
+      taskId = taskInfoDTO.getId();
+      inputTaskTitle.setText(taskInfoDTO.getTitle());
+      createTaskDTO.setTitle(taskInfoDTO.getTitle());
+      inputTaskDescription.setText(taskInfoDTO.getDescription());
+      createTaskDTO.setDescription(taskInfoDTO.getDescription());
+      inputDeadlineDate.setText(taskInfoDTO.getDeadlineDate().format(DATE_TIME_FORMATTER));
+      createTaskDTO.setDescription(taskInfoDTO.getDescription());
+      reminderTime.setText(taskInfoDTO.getReminderTime().format(DATE_TIME_FORMATTER));
+      createTaskDTO.setReminderTime(taskInfoDTO.getReminderTime());
+
+      switch (taskInfoDTO.getReminderType()) {
+        case DAILY:
+          reminderTypeGroup.check(R.id.dailyNotification);
+          break;
+        case ONE_TIME:
+          reminderTypeGroup.check(R.id.oneTimeNotification);
+          break;
+        case WEEKLY:
+          reminderTypeGroup.check(R.id.weeklyNotification);
+          break;
+        case MONTHLY:
+          reminderTypeGroup.check(R.id.monthlyNotification);
+          break;
+      }
+
+      createTaskDTO.setReminderType(taskInfoDTO.getReminderType());
+
+      topBarLabel.setText("Edit task");
+    } else {
+
+      topBarLabel.setText("Create task");
+      createTaskDTO = new CreateTaskDTO();
+    }
   }
 
   @OnClick(R.id.imgViewAdd)
@@ -126,8 +172,8 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
       reminderType = DAILY;
     } else if (checkedRadioButtonId == R.id.weeklyNotification) {
 
-      reminderType = WEEKPLY;
-    }else if (checkedRadioButtonId == R.id.monthlyNotification) {
+      reminderType = WEEKLY;
+    } else if (checkedRadioButtonId == R.id.monthlyNotification) {
 
       reminderType = MONTHLY;
     } else {
@@ -135,7 +181,6 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
       reminderType = ONE_TIME;
     }
 
-    CreateTaskDTO createTaskDTO = new CreateTaskDTO();
     createTaskDTO.setDeadlineDate(selectedDeadlineDate);
     createTaskDTO.setReminderTime(selectedReminderDate);
     createTaskDTO.setTitle(inputTaskTitle.getText().toString());
@@ -143,6 +188,38 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
     createTaskDTO.setSubtaskList(subtaskList);
     createTaskDTO.setReminderType(reminderType);
 
+    if (isForUpdate) {
+
+      updateTask();
+    } else {
+
+      createTask();
+    }
+
+  }
+
+  private void updateTask() {
+    taskApiService.updateTask(taskId, createTaskDTO).enqueue(new Callback<ResponseBody>() {
+
+      @Override
+      public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+        if (response.isSuccessful()) {
+
+          Toast.makeText(CreateTaskActivity.this, "Task info updated", Toast.LENGTH_LONG).show();
+          finish();
+        }
+      }
+
+      @Override
+      public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+        Log.e(TAG, "Error with task creating", t);
+      }
+    });
+  }
+
+  private void createTask() {
     taskApiService.createTask(createTaskDTO).enqueue(new Callback<ResponseBody>() {
 
       @Override
