@@ -1,5 +1,6 @@
 package com.example.smartshedulerapp.di_config.component;
 
+import com.example.smartshedulerapp.adapter.NotificationsAdapter;
 import com.example.smartshedulerapp.api.NotificationApiService;
 import com.example.smartshedulerapp.di_config.module.NotificationApiModule;
 import com.example.smartshedulerapp.fragment.ChallengesFragment;
@@ -14,4 +15,6 @@ public interface NotificationComponent {
   NotificationApiService getNotificationApiService();
 
   void inject(NotificationsFragment notificationsFragment);
+
+  void inject(NotificationsAdapter notificationsAdapter);
 }

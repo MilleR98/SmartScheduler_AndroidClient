@@ -6,6 +6,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface NotificationApiService {
@@ -15,4 +16,10 @@ public interface NotificationApiService {
 
   @DELETE("/notifications/{id}")
   Call<ResponseBody> removeNotification(@Path("id") String id);
+
+  @POST("/events/{id}/invitation/decline")
+  Call<ResponseBody> declineInvitation(@Path("id") String eventId);
+
+  @POST("/events/{id}/invitation/accept")
+  Call<ResponseBody> acceptInvitation(@Path("id") String eventId);
 }

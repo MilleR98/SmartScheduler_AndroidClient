@@ -1,6 +1,5 @@
 package com.example.smartshedulerapp.api;
 
-import com.example.smartshedulerapp.model.Event;
 import com.example.smartshedulerapp.model.EventDTO;
 import com.example.smartshedulerapp.model.EventMemberDTO;
 import com.example.smartshedulerapp.model.EventPreviewDTO;
